@@ -11,7 +11,7 @@ import reportWebVitals from './reportWebVitals';
 import reducers from './store/reducers/reducers';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(
+export const store = createStore(
   reducers,
   {},
   composeEnhancers(applyMiddleware(thunk))
@@ -19,11 +19,11 @@ const store = createStore(
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Provider store={store}>
+    <Provider store={store}>
+      <BrowserRouter>
         <App />
-      </Provider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
