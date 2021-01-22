@@ -12,7 +12,7 @@ const getStudents = async (req, res) => {
 
 const postStudent = async (req, res) => {
   try {
-    const result = await student.find({name: req.body.name});
+    const result = await student.find({ name: req.body.name });
     res.status(201);
     res.send(result[0]);
   } catch (e) {
@@ -42,11 +42,12 @@ const postStudents = async (req, res) => {
   }
 };
 
+// Workaround to don't have conflicts when changing databases
 const getStudent = async (req, res) => {
   try {
     const { id } = req.params;
-    const result = await student.findOne({_id: id});
-    
+    const result = await student.findOne({ name: id });
+
     res.send(result);
   } catch (e) {
     res.status(500);
@@ -56,12 +57,12 @@ const getStudent = async (req, res) => {
 
 const updateCompleteStudent = async (req, res) => {
   try {
-    const st = await student.findOne({_id: req.params.id});
+    const st = await student.findOne({ _id: req.params.id });
 
     st.completedtests.push(req.body);
-    const filteredPending = st.pendingtests.filter(t => t.id !== req.body.id); 
+    const filteredPending = st.pendingtests.filter((t) => t.id !== req.body.id);
     st.pendingtests = filteredPending;
-    
+
     await st.save();
     res.send(st);
     res.status(200);
@@ -76,14 +77,14 @@ const updatePendingTests = async (req, res) => {
     const { ssids } = req.body;
     const { test } = req.body;
     await student.updateMany(
-      {_id: {$in: ssids}}, 
-      {$push: { pendingtests: test}}
+      { _id: { $in: ssids } },
+      { $push: { pendingtests: test } }
     );
     const students = await student.find();
     res.send(students);
     res.status(200);
   } catch (e) {
-    console.log(e)
+    console.log(e);
     res.status(500);
     res.send(e.message);
   }
@@ -100,4 +101,12 @@ const deleteAllStudents = async (req, res) => {
   }
 };
 
-module.exports = { postStudent, postStudents, getStudents, getStudent, updateCompleteStudent, updatePendingTests, deleteAllStudents };
+module.exports = {
+  postStudent,
+  postStudents,
+  getStudents,
+  getStudent,
+  updateCompleteStudent,
+  updatePendingTests,
+  deleteAllStudents,
+};

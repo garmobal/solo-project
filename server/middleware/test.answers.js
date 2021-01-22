@@ -1,6 +1,6 @@
 const session = {};
 
-const testAnswersMiddleware = (req, res, next) => {
+const testAnswersMiddleware = (req, _, next) => {
   if (req.body.learner) {
     if (session[req.body.testid]) {
       req.test = session[req.body.testid];
