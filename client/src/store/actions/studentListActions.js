@@ -8,18 +8,18 @@ export const fetchStudents = () => {
   };
 };
 
-// export const fetchStudent = () => {
-//   return dispatch => {
-//     studentAPI.getStudent('6005b2f93ead6669af3b1fe7')
-//       .then(data => dispatch({type: actionTypes.GET_STUDENT, payload: data}));
-//   };
-// };
-export const fetchStudent = (name) => {
+export const fetchStudent = () => {
   return dispatch => {
-    studentAPI.getStudent(name)
+    studentAPI.getStudent('6005b2f93ead6669af3b1fe7')
       .then(data => dispatch({type: actionTypes.GET_STUDENT, payload: data}));
   };
 };
+// export const fetchStudent = (name) => {
+//   return dispatch => {
+//     studentAPI.getStudent(name)
+//       .then(data => dispatch({type: actionTypes.GET_STUDENT, payload: data}));
+//   };
+// };
 
 export const updateStudentResults = (ssid, status, testResults) => {
   return dispatch => {
