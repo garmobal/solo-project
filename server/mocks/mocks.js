@@ -1,6 +1,6 @@
 const mockTests = {
   valid: {
-    assignedto: ['franki'],
+    assignedto: [],
     finishedby: [],
     questions: [
       {
@@ -48,7 +48,7 @@ const mockTests = {
     testtype: 'Syllable quiz',
   },
   threeQuestions: {
-    assignedto: ['franki'],
+    assignedto: [],
     finishedby: [],
     questions: [
       {
@@ -86,7 +86,7 @@ const mockTests = {
     testtype: 'Syllable quiz',
   },
   noTitle: {
-    assignedto: ['franki'],
+    assignedto: [],
     finishedby: [],
     questions: [
       {
@@ -134,7 +134,7 @@ const mockTests = {
     testtype: 'Syllable quiz',
   },
   noTestType: {
-    assignedto: ['franki'],
+    assignedto: [],
     finishedby: [],
     questions: [
       {
