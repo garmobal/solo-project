@@ -2,12 +2,11 @@ const mongoose = require('mongoose');
 
 const db = {};
 
-let url;
-if (process.env.STAGE === 'testing') {
-  url = 'mongodb://localhost:27017/learntoday-test';
-} else {
-  url = 'mongodb://localhost:27017/learntoday';
-}
+const dbHost = process.env.DB_HOST || 'mongodb://localhost';
+const dbPort = process.env.DB_PORT || 27017;
+const dbName = process.env.DB_NAME || 'learntoday';
+
+const url = `${dbHost}:${dbPort}/${dbName}`;
 
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
 db.conn = mongoose;

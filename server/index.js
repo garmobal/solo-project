@@ -1,14 +1,14 @@
 const db = require('./db');
 const { app } = require('./app');
 
-const PORT = process.env.PORT | 3002;
+const hostname = process.env.HOST || 'localhost';
+const port = process.env.PORT || 3002;
+
 (async () => {
   try {
     await db.conn;
-    app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
+    app.listen(port, () => console.log(`http://${hostname}:${port}`));
   } catch (e) {
     console.log(e);
   }
 })();
-
-// app.listen(PORT, () => console.log('running @ http://localhost:3002 '));
