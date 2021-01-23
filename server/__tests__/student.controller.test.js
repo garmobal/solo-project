@@ -8,6 +8,26 @@ describe('post students', () => {
   it('should post students', async (done) => {
     const response = await request.post('/student/multiple').send(students);
     expect(response.status).toBe(201);
+    const firstStudent = response.body[0];
+    const secondStudent = response.body[1];
+    expect(firstStudent.name).toBe('Peter');
+    expect(secondStudent.name).toBe('Francesco');
+    expect(firstStudent.pendingtests).toEqual([]);
+    expect(secondStudent.pendingtests).toEqual([]);
+    expect(firstStudent.classes).toEqual([]);
+    expect(secondStudent.classes).toEqual([]);
+    expect(firstStudent.completedtests).toEqual([]);
+    expect(secondStudent.completedtests).toEqual([]);
+    done();
+  });
+
+  it('should not post students if the name is not provided', async (done) => {
+    const response = await request
+      .post('/student/multiple')
+      .send([{ surname: 'French' }]);
+    expect(response.status).toBe(500);
+
+    console.log('response.body :>> ', response.body);
     done();
   });
 });
