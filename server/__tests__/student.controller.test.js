@@ -2,7 +2,7 @@ const { app } = require('../app');
 const supertest = require('supertest');
 const request = supertest(app);
 
-const { mockStudent, mockStudents } = require('./../mocks/mocks');
+const { mockStudent, mockStudents, mockTests } = require('./../mocks/mocks');
 
 describe('post students', () => {
   it('should post students', async (done) => {
@@ -80,6 +80,28 @@ describe('get student', () => {
     expect(student.classes).toEqual([]);
     expect(student.completedtests).toEqual([]);
 
+    done();
+  });
+});
+
+describe('update pending tests', () => {
+  it('should update pending tests', async (done) => {
+    const studentsResponse = await request.get('/student');
+    const ssids = [studentsResponse.body[0]._id, studentsResponse.body[1]._id];
+    const test = mockTests.valid;
+    const response = await request.put('/student/pending/3').send({
+      ssids: ssids,
+      test: test,
+    });
+    expect(response.status).toBe(200);
+    const firstStudent = response.body[0];
+    const secondStudent = response.body[1];
+    expect(firstStudent.pendingtests[0].title).toBe(mockTests.valid.title);
+    expect(secondStudent.pendingtests[0].title).toBe(mockTests.valid.title);
+    expect(firstStudent.classes).toEqual([]);
+    expect(secondStudent.classes).toEqual([]);
+    expect(firstStudent.completedtests).toEqual([]);
+    expect(secondStudent.completedtests).toEqual([]);
     done();
   });
 });
