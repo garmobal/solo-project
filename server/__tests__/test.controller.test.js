@@ -12,27 +12,28 @@ describe("POST test", () => {
     expect(response.body.questions.length).toEqual(mockTest.questions.length);
     expect(response.body.title).toEqual(mockTest.title);
     done();
-  });
+  }),
+    it("should not post a test if it has less than than 4 questions", async (done) => {
+      const invalidMockTest = mockTest;
+      invalidMockTest.questions = invalidMockTest.questions.slice(0, 3);
+      console.log(invalidMockTest.questions.slice(0, 2));
+    });
 });
 
 describe("GET tests", () => {
   it("should get all tests", async (done) => {
     const response = await request.get("/test");
-    const lastTestPos = response.body.length;
-    console.log("lastTestPos ----->", lastTestPos);
-    console.log("response.body[31] ----->", response.body[32]);
-    console.log(
-      "response.body[lastTestPos] ----->",
-      response.body[lastTestPos - 1]
-    );
+    const lastTestPos = response.body.length - 1;
     expect(response.status).toBe(200);
-    expect(response.body[lastTestPosition].assignedto[0]).toEqual(
+    expect(response.body[lastTestPos].assignedto[0]).toEqual(
       mockTest.assignedto[0]
     );
-    // expect(response.body.finishedby).toEqual(mockTest.finishedby);
-    // expect(response.body.testtype).toEqual(mockTest.testtype);
-    // expect(response.body.questions.length).toEqual(mockTest.questions.length);
-    // expect(response.body.title).toEqual(mockTest.title);
+    expect(response.body[lastTestPos].finishedby).toEqual(mockTest.finishedby);
+    expect(response.body[lastTestPos].testtype).toEqual(mockTest.testtype);
+    expect(response.body[lastTestPos].questions.length).toEqual(
+      mockTest.questions.length
+    );
+    expect(response.body[lastTestPos].title).toEqual(mockTest.title);
     done();
   });
 });
