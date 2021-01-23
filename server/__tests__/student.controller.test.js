@@ -27,7 +27,6 @@ describe('post students', () => {
       .send([{ surname: 'French' }]);
     expect(response.status).toBe(500);
 
-    console.log('response.body :>> ', response.body);
     done();
   });
 });
