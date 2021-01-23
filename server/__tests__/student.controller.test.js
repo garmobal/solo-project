@@ -106,6 +106,24 @@ describe('update pending tests', () => {
   });
 });
 
+describe('update complete tests', () => {
+  it('should update complete tests', async (done) => {
+    const studentsResponse = await request.get('/student');
+    const ssid = studentsResponse.body[0]._id;
+    const response = await request
+      .put(`/student/completed/${ssid}`)
+      .send(mockTests.valid);
+
+    expect(response.status).toBe(200);
+    const firstStudent = response.body;
+    expect(firstStudent.pendingtests).toEqual([]);
+    expect(firstStudent.classes).toEqual([]);
+    expect(firstStudent.completedtests[0].title).toBe(mockTests.valid.title);
+
+    done();
+  });
+});
+
 describe('delete students', () => {
   it('should delete students', async (done) => {
     const response = await request.delete('/student');
