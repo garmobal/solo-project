@@ -1,7 +1,7 @@
 const db = require('./db');
 const { app } = require('./app');
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT | 3002;
 (async () => {
   try {
     await db.conn;
