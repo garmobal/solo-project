@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const db = {};
 
 let url;
-if (process.env.JEST_WORKER_ID !== undefined) {
+if (process.env.STAGE === 'testing') {
   url = 'mongodb://localhost:27017/learntoday-test';
 } else {
   url = 'mongodb://localhost:27017/learntoday';
