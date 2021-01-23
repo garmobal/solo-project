@@ -2,17 +2,16 @@ const { app } = require('../app');
 const supertest = require('supertest');
 const request = supertest(app);
 
-const student = { name: 'Peter' };
-const students = [{ name: 'Peter' }, { name: 'Francesco' }];
+const { mockStudent, mockStudents } = require('./../mocks/mocks');
 
 describe('post students', () => {
   it('should post students', async (done) => {
-    const response = await request.post('/student/multiple').send(students);
+    const response = await request.post('/student/multiple').send(mockStudents);
     expect(response.status).toBe(201);
     const firstStudent = response.body[0];
     const secondStudent = response.body[1];
-    expect(firstStudent.name).toBe(students[0].name);
-    expect(secondStudent.name).toBe(students[1].name);
+    expect(firstStudent.name).toBe(mockStudents[0].name);
+    expect(secondStudent.name).toBe(mockStudents[1].name);
     expect(firstStudent.pendingtests).toEqual([]);
     expect(secondStudent.pendingtests).toEqual([]);
     expect(firstStudent.classes).toEqual([]);
@@ -34,8 +33,8 @@ describe('post students', () => {
 
 describe('post student', () => {
   it('should get a single student', async (done) => {
-    const response = await request.post('/student').send(student);
-    expect(response.body.name).toBe(student.name);
+    const response = await request.post('/student').send(mockStudent);
+    expect(response.body.name).toBe(mockStudent.name);
     expect(response.body.pendingtests).toEqual([]);
     expect(response.body.classes).toEqual([]);
     expect(response.body.completedtests).toEqual([]);
@@ -57,8 +56,8 @@ describe('get students', () => {
     expect(response.status).toBe(200);
     const firstStudent = response.body[0];
     const secondStudent = response.body[1];
-    expect(firstStudent.name).toBe(students[0].name);
-    expect(secondStudent.name).toBe(students[1].name);
+    expect(firstStudent.name).toBe(mockStudents[0].name);
+    expect(secondStudent.name).toBe(mockStudents[1].name);
     expect(firstStudent.pendingtests).toEqual([]);
     expect(secondStudent.pendingtests).toEqual([]);
     expect(firstStudent.classes).toEqual([]);
@@ -69,9 +68,26 @@ describe('get students', () => {
   });
 });
 
+describe('get student', () => {
+  it('should get student by id', async (done) => {
+    const studentsResponse = await request.get('/student');
+    const firstStudent = studentsResponse.body[0];
+    const studentResponse = await request.get(`/student/${firstStudent._id}`);
+    const student = studentResponse.body;
+    expect(studentResponse.status).toBe(200);
+    expect(student.name).toBe(mockStudents[0].name);
+    expect(student.pendingtests).toEqual([]);
+    expect(student.classes).toEqual([]);
+    expect(student.completedtests).toEqual([]);
+
+    done();
+  });
+});
+
 describe('delete students', () => {
   it('should delete students', async (done) => {
     const response = await request.delete('/student');
+    expect(response.body).toEqual({});
     expect(response.status).toBe(204);
     done();
   });
