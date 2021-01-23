@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchStudents } from '../../../../store/actions/studentListActions';
 import CreateButton from '../../../UI/CreateButton/CreateButton';
-import ImportStudent from './ImportStudent/ImportStudent';
-import ImportStudentsCard from './ImportStudentsCard/ImportStudentsCard';
+import ImportStudent from './ImportStudent/ImportStudent.tsx';
+import ImportStudentsCard from './ImportStudentsCard/ImportStudentsCard.tsx';
 import StudentCard from './StudentCard/StudentCard';
 
 import styles from './StudentList.module.scss';

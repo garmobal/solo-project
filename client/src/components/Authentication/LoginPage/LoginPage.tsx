@@ -9,12 +9,16 @@ const LoginPage = () => {
   const role = useSelector((state: SystemState) => state.role);
   const dispatch = useDispatch();
 
-  const submitUserHandler = (e) => {
+  const submitUserHandler = (e: React.SyntheticEvent) => {
     e.preventDefault();
+    const target = e.target as typeof e.target & {
+      personname: { value: string };
+      password: { value: string };
+    };
     dispatch(
       authenticate({
-        name: e.target.personname.value,
-        pw: e.target.password.value,
+        name: target.personname.value,
+        pw: target.password.value,
       })
     );
   };

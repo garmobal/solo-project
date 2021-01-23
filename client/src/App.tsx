@@ -3,16 +3,17 @@ import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import './styles/App.scss';
+import { SystemState } from './types';
 import Layout from './components/Layout/Layout';
 import TestList from './components/Teacher/TestList/TestList';
 import TestCreator from './components/Teacher/TestCreator/TestCreator';
 import StudentList from './components/Teacher/Students/StudentList/StudentList';
 import StudentDashboard from './components/Student/StudentDashboard/StudentDashboard';
 import TestDashboard from './components/Student/TestDashboard/TestDashboard';
-import LoginPage from './components/Authentication/LoginPage/LoginPage.tsx';
+import LoginPage from './components/Authentication/LoginPage/LoginPage';
 
 const App = (props) => {
-  const role = useSelector((state) => state.role);
+  const role = useSelector((state: SystemState) => state.role);
 
   let routes;
   if (role === 'teacher') {
