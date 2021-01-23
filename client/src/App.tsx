@@ -3,6 +3,7 @@ import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import './styles/App.scss';
+import { SystemState } from './types';
 import Layout from './components/Layout/Layout';
 import TestList from './components/Teacher/TestList/TestList';
 import TestCreator from './components/Teacher/TestCreator/TestCreator';
@@ -11,17 +12,16 @@ import StudentDashboard from './components/Student/StudentDashboard/StudentDashb
 import TestDashboard from './components/Student/TestDashboard/TestDashboard';
 import LoginPage from './components/Authentication/LoginPage/LoginPage';
 
-const App = props => {
-
-  const role = useSelector(state => state.role);
+const App = (props) => {
+  const role = useSelector((state: SystemState) => state.role);
 
   let routes;
   if (role === 'teacher') {
     routes = (
       <Layout role={role}>
-        <Switch>  
-          <Route path="/tests" exact component={TestList} /> 
-          <Route path="/testcreator" exact component={TestCreator} /> 
+        <Switch>
+          <Route path="/tests" exact component={TestList} />
+          <Route path="/testcreator" exact component={TestCreator} />
           <Route path="/students" exact component={StudentList} />
           <Redirect to="/tests" />
         </Switch>
@@ -30,27 +30,23 @@ const App = props => {
   } else if (role === 'student') {
     routes = (
       <Layout role={role}>
-        <Switch>  
-          <Route path="/user" exact component={StudentDashboard} /> 
-          <Route path="/user/quiz" exact component={TestDashboard} /> 
+        <Switch>
+          <Route path="/user" exact component={StudentDashboard} />
+          <Route path="/user/quiz" exact component={TestDashboard} />
           <Redirect to="/user" />
         </Switch>
       </Layout>
     );
   } else {
     routes = (
-        <Switch> 
-          <Route path="/login" exact component={LoginPage} /> 
-          <Redirect to="/login" />
-        </Switch>
-    )
+      <Switch>
+        <Route path="/login" exact component={LoginPage} />
+        <Redirect to="/login" />
+      </Switch>
+    );
   }
 
-  return (
-    <div className="App">
-      {routes}
-    </div>
-  );
-}
+  return <div className="App">{routes}</div>;
+};
 
 export default withRouter(App);
