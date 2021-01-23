@@ -9,19 +9,18 @@ import TestCreator from './components/Teacher/TestCreator/TestCreator';
 import StudentList from './components/Teacher/Students/StudentList/StudentList';
 import StudentDashboard from './components/Student/StudentDashboard/StudentDashboard';
 import TestDashboard from './components/Student/TestDashboard/TestDashboard';
-import LoginPage from './components/Authentication/LoginPage/LoginPage';
+import LoginPage from './components/Authentication/LoginPage/LoginPage.tsx';
 
-const App = props => {
-
-  const role = useSelector(state => state.role);
+const App = (props) => {
+  const role = useSelector((state) => state.role);
 
   let routes;
   if (role === 'teacher') {
     routes = (
       <Layout role={role}>
-        <Switch>  
-          <Route path="/tests" exact component={TestList} /> 
-          <Route path="/testcreator" exact component={TestCreator} /> 
+        <Switch>
+          <Route path="/tests" exact component={TestList} />
+          <Route path="/testcreator" exact component={TestCreator} />
           <Route path="/students" exact component={StudentList} />
           <Redirect to="/tests" />
         </Switch>
@@ -30,27 +29,23 @@ const App = props => {
   } else if (role === 'student') {
     routes = (
       <Layout role={role}>
-        <Switch>  
-          <Route path="/user" exact component={StudentDashboard} /> 
-          <Route path="/user/quiz" exact component={TestDashboard} /> 
+        <Switch>
+          <Route path="/user" exact component={StudentDashboard} />
+          <Route path="/user/quiz" exact component={TestDashboard} />
           <Redirect to="/user" />
         </Switch>
       </Layout>
     );
   } else {
     routes = (
-        <Switch> 
-          <Route path="/login" exact component={LoginPage} /> 
-          <Redirect to="/login" />
-        </Switch>
-    )
+      <Switch>
+        <Route path="/login" exact component={LoginPage} />
+        <Redirect to="/login" />
+      </Switch>
+    );
   }
 
-  return (
-    <div className="App">
-      {routes}
-    </div>
-  );
-}
+  return <div className="App">{routes}</div>;
+};
 
 export default withRouter(App);

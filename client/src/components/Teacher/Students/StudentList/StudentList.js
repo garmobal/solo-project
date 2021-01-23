@@ -8,16 +8,15 @@ import StudentCard from './StudentCard/StudentCard';
 
 import styles from './StudentList.module.scss';
 
-const StudentList = props => {
-
+const StudentList = (props) => {
   const [importingSS, setImportingSS] = useState(false);
 
-  const students = useSelector(state => state.students);
+  const students = useSelector((state) => state.students);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (!students.length) dispatch(fetchStudents());
-  }, [dispatch]); // students not a dependency
+  }, [dispatch, students.length]); // students not a dependency
 
   return (
     <div className={styles.StudentList}>
@@ -25,18 +24,15 @@ const StudentList = props => {
         show={importingSS}
         close={() => setImportingSS(false)}
       >
-        <ImportStudent close={() => setImportingSS(false)}/>
+        <ImportStudent close={() => setImportingSS(false)} />
       </ImportStudentsCard>
       <div className={styles.ButtonDiv}>
-        <CreateButton clicked={() => setImportingSS(true)}><i className="fas fa-file-import"></i> Import students</CreateButton>
+        <CreateButton clicked={() => setImportingSS(true)}>
+          <i className="fas fa-file-import"></i> Import students
+        </CreateButton>
       </div>
       {students.length
-        ? students.map((ss, i) => (
-            <StudentCard 
-              student={ss}
-              key={i}
-            />
-          ))
+        ? students.map((ss, i) => <StudentCard student={ss} key={i} />)
         : 'You have no students yet'}
     </div>
   );
