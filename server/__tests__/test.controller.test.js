@@ -51,7 +51,6 @@ const mockTest = {
   testtype: 'Syllable quiz',
 };
 
-//returns 201 but doesnt appear in the DB...
 describe('POST test', () => {
   it('should post a test', async (done) => {
     const response = await request.post('/test').send(mockTest);
