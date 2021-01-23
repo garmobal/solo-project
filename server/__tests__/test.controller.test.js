@@ -2,8 +2,43 @@ const { app } = require("../app");
 const supertest = require("supertest");
 const request = supertest(app);
 
+describe("POST test", () => {
+  it("should post a test if the format is valid", async (done) => {
+    const response = await request.post("/test").send(mockTest);
+    expect(response.status).toBe(201);
+    expect(response.body.assignedto[0]).toEqual(mockTest.assignedto[0]);
+    expect(response.body.finishedby).toEqual(mockTest.finishedby);
+    expect(response.body.testtype).toEqual(mockTest.testtype);
+    expect(response.body.questions.length).toEqual(mockTest.questions.length);
+    expect(response.body.title).toEqual(mockTest.title);
+    done();
+  });
+});
+
+describe("GET tests", () => {
+  it("should get all tests", async (done) => {
+    const response = await request.get("/test");
+    const lastTestPos = response.body.length;
+    console.log("lastTestPos ----->", lastTestPos);
+    console.log("response.body[31] ----->", response.body[32]);
+    console.log(
+      "response.body[lastTestPos] ----->",
+      response.body[lastTestPos - 1]
+    );
+    expect(response.status).toBe(200);
+    expect(response.body[lastTestPosition].assignedto[0]).toEqual(
+      mockTest.assignedto[0]
+    );
+    // expect(response.body.finishedby).toEqual(mockTest.finishedby);
+    // expect(response.body.testtype).toEqual(mockTest.testtype);
+    // expect(response.body.questions.length).toEqual(mockTest.questions.length);
+    // expect(response.body.title).toEqual(mockTest.title);
+    done();
+  });
+});
+
 const mockTest = {
-  assignedto: [],
+  assignedto: ["franki"],
   finishedby: [],
   questions: [
     {
@@ -50,19 +85,3 @@ const mockTest = {
   title: "another test",
   testtype: "Syllable quiz",
 };
-
-describe("POST test", () => {
-  it("should post a test", async (done) => {
-    const response = await request.post("/test").send(mockTest);
-    expect(response.status).toBe(201);
-    done();
-  });
-});
-
-describe("GET tests", () => {
-  it("should get all tests", async (done) => {
-    const response = await request.get("/test");
-    expect(response.status).toBe(200);
-    done();
-  });
-});
