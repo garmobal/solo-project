@@ -55,6 +55,16 @@ describe('get students', () => {
   it('should get students', async (done) => {
     const response = await request.get('/student');
     expect(response.status).toBe(200);
+    const firstStudent = response.body[0];
+    const secondStudent = response.body[1];
+    expect(firstStudent.name).toBe(students[0].name);
+    expect(secondStudent.name).toBe(students[1].name);
+    expect(firstStudent.pendingtests).toEqual([]);
+    expect(secondStudent.pendingtests).toEqual([]);
+    expect(firstStudent.classes).toEqual([]);
+    expect(secondStudent.classes).toEqual([]);
+    expect(firstStudent.completedtests).toEqual([]);
+    expect(secondStudent.completedtests).toEqual([]);
     done();
   });
 });
