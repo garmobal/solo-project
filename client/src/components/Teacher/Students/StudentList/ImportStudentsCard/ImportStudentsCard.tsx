@@ -1,20 +1,24 @@
-import React from 'react';
+import React, { SetStateAction, Dispatch } from 'react';
 
 import styles from './ImportStudentsCard.module.scss';
 
-const ImportStudentsCard = props => {
+interface IProps {
+  show: boolean;
+  close: Dispatch<SetStateAction<boolean>>;
+  children: React.ReactNode;
+}
+
+const ImportStudentsCard = (props: IProps) => {
   return (
     <React.Fragment>
-      {props.show ? 
-        (<div 
-          className={styles.Background} 
-          onClick={props.close}
-        />) : null}
-      <div 
+      {props.show ? (
+        <div className={styles.Background} onClick={() => props.close} />
+      ) : null}
+      <div
         className={styles.ImportStudentsCard}
         style={{
           transform: props.show ? 'translateY(0)' : 'translateY(-100vh)',
-          opacity: props.show ? '1' : '0'
+          opacity: props.show ? '1' : '0',
         }}
       >
         {props.children}

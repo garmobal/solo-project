@@ -10,8 +10,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import reducers from './store/reducers/reducers';
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(
+const composeEnhancers =
+  (window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] as typeof compose) || compose;
+export const store = createStore(
   reducers,
   {},
   composeEnhancers(applyMiddleware(thunk))
