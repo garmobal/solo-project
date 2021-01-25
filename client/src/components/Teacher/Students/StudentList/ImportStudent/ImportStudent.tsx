@@ -2,23 +2,27 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { parse } from 'papaparse';
 
+import { Student } from '../../../../../types';
 import CreateButton from '../../../../UI/CreateButton/CreateButton';
 import { importStudents } from '../../../../../store/actions/studentListActions';
 import styles from './ImportStudent.module.scss';
 
-const ImportStudent = props => {
+interface IProps {
+  close: () => void;
+}
 
+const ImportStudent = (props: IProps) => {
   const [highlighted, setHighlighted] = useState(false);
-  const [ss, setSs] = useState([]);
+  const [ss, setSs] = useState<Student[]>([]);
 
   const dispatch = useDispatch();
 
-  const dropHandler = e => {
+  const dropHandler = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setHighlighted(false);
     Array.from(e.dataTransfer.files)
-      .filter((file) => file.type === "text/csv")
-      .forEach(async (file) => {
+      .filter((file: File) => file.type === 'text/csv')
+      .forEach(async (file: File) => {
         const text = await file.text();
         const result = parse(text, { header: true });
         setSs((sts) => [...sts, ...result.data]);
@@ -35,8 +39,10 @@ const ImportStudent = props => {
 
   return (
     <div className={styles.ImportStudent}>
-       <div
-        className={`${styles.DropDiv} ${highlighted ? styles.Highlighted : styles.NotHighlighted}`}
+      <div
+        className={`${styles.DropDiv} ${
+          highlighted ? styles.Highlighted : styles.NotHighlighted
+        }`}
         onDragEnter={() => setHighlighted(true)}
         onDragLeave={() => setHighlighted(false)}
         onDragOver={(e) => e.preventDefault()}
@@ -45,9 +51,9 @@ const ImportStudent = props => {
         Drop your files here
       </div>
       <div className={styles.DropList}>
-        {ss.length ? ss.map((st, i) => (
-          <p key={i}>{st.name}</p>
-        )) : null}
+        {ss.length
+          ? ss.map((st: Student, i: number) => <p key={i}>{st.name}</p>)
+          : null}
       </div>
       <div className={styles.Buttons}>
         <CreateButton clicked={saveHandler}>

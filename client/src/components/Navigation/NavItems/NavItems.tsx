@@ -9,7 +9,7 @@ const NavItems = () => {
   const role = useSelector((state: SystemState) => state.role);
   const student = useSelector((state: SystemState) => state.currentStudent);
 
-  const navigation = {
+  const navigation: { [role: string]: JSX.Element } = {
     teacher: (
       <ul className={styles.NavItems}>
         <li>

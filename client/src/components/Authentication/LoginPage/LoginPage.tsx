@@ -1,19 +1,24 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { SystemState } from '../../../types';
 import { authenticate } from '../../../store/actions/authActions';
 import styles from './LoginPage.module.scss';
 
-const LoginPage = (props) => {
-  const role = useSelector((state) => state.role);
+const LoginPage = () => {
+  const role = useSelector((state: SystemState) => state.role);
   const dispatch = useDispatch();
 
-  const submitUserHandler = (e) => {
+  const submitUserHandler = (e: React.SyntheticEvent) => {
     e.preventDefault();
+    const target = e.target as typeof e.target & {
+      personname: { value: string };
+      password: { value: string };
+    };
     dispatch(
       authenticate({
-        name: e.target.personname.value,
-        pw: e.target.password.value,
+        name: target.personname.value,
+        pw: target.password.value,
       })
     );
   };

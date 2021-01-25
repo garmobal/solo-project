@@ -4,7 +4,7 @@ import { fetchStudents } from '../../../../store/actions/studentListActions';
 import CreateButton from '../../../UI/CreateButton/CreateButton';
 import ImportStudent from './ImportStudent/ImportStudent';
 import ImportStudentsCard from './ImportStudentsCard/ImportStudentsCard';
-import StudentCard from './StudentCard/StudentCard';
+import StudentCard from './StudentCard/StudentCard.tsx';
 
 import styles from './StudentList.module.scss';
 
