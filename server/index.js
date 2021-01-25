@@ -1,13 +1,13 @@
 const db = require('./db');
 const { app } = require('./app');
-
-const hostname = process.env.HOST || 'localhost';
-const port = process.env.PORT || 3002;
+const config = require('./config');
 
 (async () => {
   try {
     await db.conn;
-    app.listen(port, () => console.log(`http://${hostname}:${port}`));
+    app.listen(config.port, () =>
+      console.log(`http://${config.host}:${config.port}`)
+    );
   } catch (e) {
     console.log(e);
   }
