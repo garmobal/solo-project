@@ -1,10 +1,19 @@
 const { app } = require('../app');
 const supertest = require('supertest');
 const request = supertest(app);
+const student = require('./../models/student.model');
 
 const { mockStudent, mockStudents, mockTests } = require('./../mocks/mocks');
 
+afterAll(async () => {
+  await student.collection.drop();
+});
+
 describe('post students', () => {
+  afterEach(async () => {
+    await student.deleteMany({});
+  });
+
   it('should post students', async (done) => {
     const response = await request.post('/student/multiple').send(mockStudents);
     expect(response.status).toBe(201);
@@ -32,6 +41,14 @@ describe('post students', () => {
 });
 
 describe('post student', () => {
+  beforeEach(async () => {
+    await student.insertMany(mockStudents);
+  });
+
+  afterEach(async () => {
+    await student.deleteMany({});
+  });
+
   it('should get a single student', async (done) => {
     const response = await request.post('/student').send(mockStudent);
     expect(response.body.name).toBe(mockStudent.name);
@@ -51,6 +68,14 @@ describe('post student', () => {
 });
 
 describe('get students', () => {
+  beforeEach(async () => {
+    await student.insertMany(mockStudents);
+  });
+
+  afterEach(async () => {
+    await student.deleteMany({});
+  });
+
   it('should get students', async (done) => {
     const response = await request.get('/student');
     expect(response.status).toBe(200);
@@ -69,6 +94,14 @@ describe('get students', () => {
 });
 
 describe('get student', () => {
+  beforeEach(async () => {
+    await student.insertMany(mockStudents);
+  });
+
+  afterEach(async () => {
+    await student.deleteMany({});
+  });
+
   it('should get student by id', async (done) => {
     const studentsResponse = await request.get('/student');
     const firstStudent = studentsResponse.body[0];
@@ -85,6 +118,14 @@ describe('get student', () => {
 });
 
 describe('update pending tests', () => {
+  beforeEach(async () => {
+    await student.insertMany(mockStudents);
+  });
+
+  afterEach(async () => {
+    await student.deleteMany({});
+  });
+
   it('should update pending tests', async (done) => {
     const studentsResponse = await request.get('/student');
     const ssids = [studentsResponse.body[0]._id, studentsResponse.body[1]._id];
@@ -107,6 +148,14 @@ describe('update pending tests', () => {
 });
 
 describe('update complete tests', () => {
+  beforeEach(async () => {
+    await student.insertMany(mockStudents);
+  });
+
+  afterEach(async () => {
+    await student.deleteMany({});
+  });
+
   it('should update complete tests', async (done) => {
     const studentsResponse = await request.get('/student');
     const ssid = studentsResponse.body[0]._id;
@@ -125,10 +174,16 @@ describe('update complete tests', () => {
 });
 
 describe('delete students', () => {
+  beforeEach(async () => {
+    await student.insertMany(mockStudents);
+  });
+
   it('should delete students', async (done) => {
     const response = await request.delete('/student');
     expect(response.body).toEqual({});
     expect(response.status).toBe(204);
+    const students = await student.find();
+    expect(students).toEqual([]);
     done();
   });
 });
