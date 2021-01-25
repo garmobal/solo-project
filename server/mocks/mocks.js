@@ -237,4 +237,4 @@ const mockTestWithIds = {
   testtype: 'Syllable quiz',
 };
 
-module.exports = { mockTests, mockStudent, mockStudents };
+module.exports = { mockTests, mockStudent, mockStudents, mockTestWithIds };
