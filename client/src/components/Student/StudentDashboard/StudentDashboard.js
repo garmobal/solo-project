@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import styles from './StudentDashboard.module.scss';
-import { fetchStudent } from '../../../store/actions/studentListActions';
+import { fetchStudent } from '../../../store/actions/studentListActions.ts';
 
 import StudentTestList from './StudentTestList/StudentTestList';
 
