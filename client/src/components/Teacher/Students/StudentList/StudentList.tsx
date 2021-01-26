@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchStudents } from '../../../../store/actions/studentListActions.ts';
+import { fetchStudents } from '../../../../store/actions/studentListActions';
+import { SystemState } from '../../../../types';
 import CreateButton from '../../../UI/CreateButton/CreateButton';
-import ImportStudent from './ImportStudent/ImportStudent.tsx';
-import ImportStudentsCard from './ImportStudentsCard/ImportStudentsCard.tsx';
-import StudentCard from './StudentCard/StudentCard.tsx';
+import ImportStudent from './ImportStudent/ImportStudent';
+import ImportStudentsCard from './ImportStudentsCard/ImportStudentsCard';
+import StudentCard from './StudentCard/StudentCard';
 
 import styles from './StudentList.module.scss';
 
-const StudentList = (props) => {
+const StudentList = () => {
   const [importingSS, setImportingSS] = useState(false);
 
-  const students = useSelector((state) => state.students);
+  const students = useSelector((state: SystemState) => state.students);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!students.length) dispatch(fetchStudents());
-  }, [dispatch, students.length]); // students not a dependency
+    if (!students?.length) dispatch(fetchStudents());
+  }, [dispatch, students?.length]); // students not a dependency
 
   return (
     <div className={styles.StudentList}>
@@ -31,7 +32,7 @@ const StudentList = (props) => {
           <i className="fas fa-file-import"></i> Import students
         </CreateButton>
       </div>
-      {students.length
+      {students?.length
         ? students.map((ss, i) => <StudentCard student={ss} key={i} />)
         : 'You have no students yet'}
     </div>

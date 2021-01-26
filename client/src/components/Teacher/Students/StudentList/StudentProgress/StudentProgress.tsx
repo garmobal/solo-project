@@ -1,18 +1,23 @@
 import React from 'react';
+import { Student } from '../../../../../types';
 
 import styles from './StudentProgress.module.scss';
 
-const StudentProgress = props => {
+interface IProps {
+  student: Student;
+}
+
+const StudentProgress = (props: IProps) => {
   return (
     <div className={styles.StudentProgress}>
       <div className={styles.Header}>
-        Completed tests: 
+        Completed tests:
         <span className={styles.Completed}>
-          {props.student.completedtests.length}
+          {props?.student?.completedtests?.length}
         </span>
       </div>
       <div className={styles.CompletedInfo}>
-        {props.student.completedtests.length ? 
+        {props?.student?.completedtests?.length ? (
           <div className={styles.TestContainer}>
             {props.student.completedtests.map((test, i) => (
               <div key={i} className={styles.Test}>
@@ -22,31 +27,33 @@ const StudentProgress = props => {
                 </div>
                 <div className={styles.TestQuestions}>
                   {test.result.questions.map((q, i) => (
-                    <p key={i}>{q.question} <span style={{color: q.correct ? 'green' : '#E63046'}}>{q.option}</span></p>
-                ))}
+                    <p key={i}>
+                      {q.question}{' '}
+                      <span style={{ color: q.correct ? 'green' : '#E63046' }}>
+                        {q.option}
+                      </span>
+                    </p>
+                  ))}
                 </div>
               </div>
             ))}
           </div>
-         : null}
+        ) : null}
       </div>
 
       <div className={styles.Header}>
-        Pending tests: 
+        Pending tests:
         <span className={styles.Pending}>
-          {props.student.pendingtests.length}
+          {props?.student?.pendingtests?.length}
         </span>
       </div>
       <div className={styles.PendingContainer}>
-        {props.student.pendingtests.length ? 
-          props.student.pendingtests.map((test, i) => (
-            <p key={i}>{test.title}</p>
-          ))
-
-         : null}
+        {props?.student?.pendingtests?.length
+          ? props.student.pendingtests.map((test, i) => (
+              <p key={i}>{test.title}</p>
+            ))
+          : null}
       </div>
-
-
     </div>
   );
 };

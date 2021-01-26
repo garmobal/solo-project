@@ -2,14 +2,15 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { fetchTests, deleteTest } from '../../../store/actions/testActions.ts';
-import { fetchStudents } from '../../../store/actions/studentListActions.ts';
+import { fetchTests, deleteTest } from '../../../store/actions/testActions';
+import { fetchStudents } from '../../../store/actions/studentListActions';
 import TestCard from '../TestCard/TestCard';
 import CreateButton from '../../UI/CreateButton/CreateButton';
 import styles from './TestList.module.scss';
+import { SystemState, Test } from '../../../types';
 
 const TestList = () => {
-  const tests = useSelector((state) => state.tests);
+  const tests = useSelector((state: SystemState) => state.tests);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -17,7 +18,7 @@ const TestList = () => {
     dispatch(fetchStudents());
   }, [dispatch]);
 
-  const deleteTestHandler = (id) => dispatch(deleteTest(id));
+  const deleteTestHandler = (id: string) => dispatch(deleteTest(id));
 
   return (
     <div className={styles.TestList}>
@@ -25,8 +26,8 @@ const TestList = () => {
         <CreateButton>Add a new test</CreateButton>
       </Link>
       <div className={styles.TestListContainer}>
-        {tests.length
-          ? tests.map((test) => (
+        {tests?.length
+          ? tests.map((test: Test) => (
               <TestCard
                 test={test}
                 key={test._id}

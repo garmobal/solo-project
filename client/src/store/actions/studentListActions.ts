@@ -44,7 +44,7 @@ export const updateStudentResults = (
   return (dispatch: AppDispatch) => {
     studentAPI.updateStudentTests(ssid, status, testResults).then((data) => {
       dispatch({ type: actionTypes.GET_STUDENT, payload: data });
-      dispatch({ type: actionTypes.RESET_PROGRESS });
+      dispatch({ type: actionTypes.RESET_PROGRESS, payload: data });
     });
   };
 };

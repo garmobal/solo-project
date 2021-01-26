@@ -22,11 +22,11 @@ const StudentCard = (props: IProps) => {
         </div>
         <div className={styles.StudentActions}>
           <div className={styles.StudentActionsItem}>
-            {props.student.completedtests.length}
+            {props?.student?.completedtests?.length}
             <i className={`fas fa-check ${styles.Tick}`}></i>
           </div>
           <div className={styles.StudentActionsItem}>
-            {props.student.pendingtests.length}
+            {props?.student?.pendingtests?.length}
             <i className={`fas fa-circle ${styles.Circle}`}></i>
           </div>
           <div className={styles.StudentActionsItem}>

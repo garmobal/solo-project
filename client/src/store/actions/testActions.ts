@@ -1,7 +1,7 @@
 import * as actionTypes from './actionTypes';
 import * as testAPI from '../../testAPI';
 import { AppDispatch } from '../../index';
-import { TestQuestion, UserAnswer } from '../../types';
+import { ResultQuestions, TestQuestion, UserAnswer } from '../../types';
 
 export const fetchTests = () => {
   return (dispatch: AppDispatch) => {
@@ -40,8 +40,10 @@ export const fetchQuizz = (id: string) => {
 };
 
 export const checkUserAnswer = (answerObject: UserAnswer) => {
+  console.log(answerObject);
+
   return (dispatch: AppDispatch) => {
-    testAPI.checkAnswer(answerObject).then((data) =>
+    testAPI.checkAnswer(answerObject).then((data: ResultQuestions) =>
       dispatch({
         type: actionTypes.POST_CHECK_ANSWER,
         payload: { data, answerObject },
