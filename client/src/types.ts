@@ -14,6 +14,7 @@ export interface Student {
 }
 
 export interface CompletedTest {
+  id: string;
   result: TestResult;
   title?: string;
 }
@@ -65,7 +66,7 @@ export interface UserAnswer {
 
 export interface LoginStatus {
   name: string;
-  pw: string;
+  pw?: string;
   logout?: string;
 }
 
