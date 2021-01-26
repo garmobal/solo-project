@@ -2,15 +2,14 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { fetchTests, deleteTest } from '../../../store/actions/testActions';
-import { fetchStudents } from '../../../store/actions/studentListActions';
+import { fetchTests, deleteTest } from '../../../store/actions/testActions.ts';
+import { fetchStudents } from '../../../store/actions/studentListActions.ts';
 import TestCard from '../TestCard/TestCard';
 import CreateButton from '../../UI/CreateButton/CreateButton';
 import styles from './TestList.module.scss';
 
 const TestList = () => {
-
-  const tests = useSelector(state => state.tests);
+  const tests = useSelector((state) => state.tests);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,14 +21,19 @@ const TestList = () => {
 
   return (
     <div className={styles.TestList}>
-      <Link to="/testcreator"><CreateButton>Add a new test</CreateButton></Link>
+      <Link to="/testcreator">
+        <CreateButton>Add a new test</CreateButton>
+      </Link>
       <div className={styles.TestListContainer}>
-        {tests.length ? tests.map((test) => (
-          <TestCard 
-            test={test}
-            key={test._id} 
-            deleteTestHandler={deleteTestHandler}/>
-        )) : 'Fetching tests!'}
+        {tests.length
+          ? tests.map((test) => (
+              <TestCard
+                test={test}
+                key={test._id}
+                deleteTestHandler={deleteTestHandler}
+              />
+            ))
+          : 'Fetching tests!'}
       </div>
     </div>
   );

@@ -12,7 +12,7 @@ import StudentDashboard from './components/Student/StudentDashboard/StudentDashb
 import TestDashboard from './components/Student/TestDashboard/TestDashboard';
 import LoginPage from './components/Authentication/LoginPage/LoginPage';
 
-const App = (props) => {
+const App = () => {
   const role = useSelector((state: SystemState) => state.role);
 
   let routes;

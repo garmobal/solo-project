@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 
 import Answer from '../Answer/Answer';
 import styles from './Question.module.scss';
-import { checkUserAnswer } from '../../../../store/actions/testActions';
-import { updateStudentResults } from '../../../../store/actions/studentListActions';
+import { checkUserAnswer } from '../../../../store/actions/testActions.ts';
+import { updateStudentResults } from '../../../../store/actions/studentListActions.ts';
 
 const Question = (props) => {
   const [userIsAnswering, setuserIsAnswering] = useState(true);
@@ -77,7 +77,6 @@ const Question = (props) => {
             src={props.question.image}
           />
         ) : null}
-        {console.log(props.question)}
       </div>
       <div className={styles.Options}>
         {props.question.options.map((opt, i) => (

@@ -7,7 +7,11 @@ import CreateButton from '../../../../UI/CreateButton/CreateButton';
 import { importStudents } from '../../../../../store/actions/studentListActions';
 import styles from './ImportStudent.module.scss';
 
-const ImportStudent = (props) => {
+interface IProps {
+  close: () => void;
+}
+
+const ImportStudent = (props: IProps) => {
   const [highlighted, setHighlighted] = useState(false);
   const [ss, setSs] = useState<Student[]>([]);
 
