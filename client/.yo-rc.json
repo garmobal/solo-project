@@ -22,13 +22,93 @@
               {
                 "test": "/\\.(ts|tsx)$/",
                 "loader": "'ts-loader'",
+<<<<<<< HEAD
                 "include": ["path.resolve(__dirname, 'src')"],
                 "exclude": ["/node_modules/"]
+=======
+                "include": [
+                  "path.resolve(__dirname, 'src')"
+                ],
+                "exclude": [
+                  "/node_modules/"
+                ]
+              },
+              {
+                "test": "/.(sa|sc|c)ss$/",
+                "use": [
+                  {
+                    "loader": "\"style-loader\""
+                  },
+                  {
+                    "loader": "\"css-loader\"",
+                    "options": {
+                      "sourceMap": true
+                    }
+                  }
+                ]
+>>>>>>> 75fd73065507e703a7dcc176595b00b7e555070c
               }
             ]
           },
           "resolve": {
+<<<<<<< HEAD
             "extensions": ["'.tsx'", "'.ts'", "'.js'"]
+=======
+            "extensions": [
+              "'.tsx'",
+              "'.ts'",
+              "'.js'"
+            ]
+          },
+          "devServer": {
+            "open": true,
+            "host": "'localhost'"
+          }
+        }
+      }
+    }
+  },
+  "my-webpack-project": {
+    "configuration": {
+      "config": {
+        "configName": "config",
+        "topScope": [
+          "const path = require('path');",
+          "const webpack = require('webpack');",
+          "\n",
+          "const WorkboxWebpackPlugin = require('workbox-webpack-plugin');",
+          "\n"
+        ],
+        "webpackOptions": {
+          "mode": "'development'",
+          "plugins": [
+            "new webpack.ProgressPlugin()",
+            "new WorkboxWebpackPlugin.GenerateSW({\n\t\t\t\tswDest: 'sw.js',\n\t\t\t\tclientsClaim: true,\n\t\t\t\tskipWaiting: false,\n\t\t\t})"
+          ],
+          "module": {
+            "rules": [
+              {
+                "test": "/.(sa|sc|c)ss$/",
+                "use": [
+                  {
+                    "loader": "\"style-loader\""
+                  },
+                  {
+                    "loader": "\"css-loader\"",
+                    "options": {
+                      "sourceMap": true
+                    }
+                  },
+                  {
+                    "loader": "\"sass-loader\"",
+                    "options": {
+                      "sourceMap": true
+                    }
+                  }
+                ]
+              }
+            ]
+>>>>>>> 75fd73065507e703a7dcc176595b00b7e555070c
           },
           "devServer": {
             "open": true,
