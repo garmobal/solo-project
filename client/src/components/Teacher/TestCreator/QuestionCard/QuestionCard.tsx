@@ -1,8 +1,14 @@
-import React from 'react';
-
+import * as React from 'react';
+import { Question } from '../../../../types';
 import styles from './QuestionCard.module.scss';
 
-const QuestionCard = props => {
+
+interface IProps {
+  quest: Question;
+  trashHandler: Function;
+}
+
+const QuestionCard = (props: IProps) => {
   return (
     <div className={styles.QuestionCard}>
       <i 

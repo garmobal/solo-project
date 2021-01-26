@@ -87,3 +87,14 @@ export interface Quizz {
   testtype: string;
   title: string;
 }
+
+export interface Question {
+  answer: string;
+  options: Option[];
+  question: string;
+  image: string;
+}
+
+export interface Trash {
+  question: Question;
+}
