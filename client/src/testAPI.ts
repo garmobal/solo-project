@@ -1,4 +1,3 @@
-import reducers from './store/reducers/reducers';
 import { Test, UserAnswer } from './types';
 
 const baseUrl = 'http://localhost:3002';
@@ -51,11 +50,15 @@ function fetchTests(url: string, options?: RequestInit | undefined) {
   return fetch(url, options)
     .then((res) => {
       if (res.status < 400) return res;
-      else Promise.reject(res);
+      else {
+        Promise.reject(res);
+        return;
+      }
     })
     .then((res) => {
       if (typeof res !== 'undefined') {
         if (res.status !== 204) return res.json();
+        else return;
       } else return res;
     })
     .catch((err) => console.log(err));

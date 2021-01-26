@@ -1,17 +1,21 @@
 export interface SystemState {
   role: string;
   currentStudent?: Student;
+  tests?: Test[];
+  students?: Student[];
+  currentQuizz?: Quizz;
 }
 
 export interface Student {
-  pendingtests: PendingTest[];
+  pendingtests?: PendingTest[];
   _id: string;
   name: string;
-  completedtests: CompletedTest[];
+  completedtests?: CompletedTest[];
 }
 
 export interface CompletedTest {
   result: TestResult;
+  title?: string;
 }
 
 export interface TestResult {
@@ -33,7 +37,7 @@ export interface PendingTest {
 }
 
 export interface Test {
-  _id?: string;
+  _id: string;
   questions: TestQuestion[];
   title: string;
 }

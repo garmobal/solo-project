@@ -1,4 +1,10 @@
-import { Student, SystemState, Test, TestQuestion } from '../../types';
+import {
+  ResultQuestions,
+  Student,
+  SystemState,
+  Test,
+  UserAnswer,
+} from '../../types';
 
 // For tests
 export const GET_TESTS = 'GET_TESTS';
@@ -67,8 +73,8 @@ export type StudentsActionTypes =
   | ResetProgressAction;
 
 interface AnswerObject {
-  answerObject: TestQuestion;
-  data: string;
+  answerObject: UserAnswer;
+  data: ResultQuestions;
 }
 
 interface GetCurrentQuizzAction {

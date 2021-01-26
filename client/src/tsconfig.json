@@ -15,7 +15,7 @@
     "removeComments": true /* Do not emit comments to output. */,
     "noImplicitReturns": true /* Report error when not all code paths in function return a value. */,
     "noUnusedLocals": false /* Report errors on unused locals. */,
-    "strict": false /* Enable all strict type-checking options. */,
+    "strict": true /* Enable all strict type-checking options. */,
     "outDir": "dist" /* Redirect output structure to the directory. */,
     "baseUrl": "src" /* Base directory to resolve non-absolute module names. */,
     "typeRoots": [

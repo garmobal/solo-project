@@ -31,7 +31,7 @@ const NavItems = () => {
     ),
     student: (
       <div className={styles.Welcome}>
-        <span>Hello</span> {student.name}!
+        <span>Hello</span> {typeof student !== 'undefined' && student.name}!
       </div>
     ),
   };

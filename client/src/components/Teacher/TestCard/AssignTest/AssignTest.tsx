@@ -2,15 +2,22 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import SelectStudent from './SelectStudent/SelectStudent';
-import { updateStudentsPendingTests } from '../../../../store/actions/studentListActions.ts';
+import { updateStudentsPendingTests } from '../../../../store/actions/studentListActions';
 import styles from './AssignTest.module.scss';
+import { Student, Test } from '../../../../types';
 
-const AssignTest = (props) => {
-  const [selectedSS, setSelectedSS] = useState([]);
+interface IProps {
+  test: Test;
+  close: () => void;
+  students: Student[];
+}
+
+const AssignTest = (props: IProps) => {
+  const [selectedSS, setSelectedSS] = useState<Student[] | []>([]);
   const dispatch = useDispatch();
 
-  const selectNameHandler = (st) => {
-    const filter = selectedSS.filter((s) => s._id !== st._id);
+  const selectNameHandler = (st: Student) => {
+    const filter = selectedSS.filter((s: Student) => s._id !== st._id);
     if (filter.length === selectedSS.length) {
       setSelectedSS([...selectedSS, st]);
     } else {
@@ -18,9 +25,9 @@ const AssignTest = (props) => {
     }
   };
 
-  const assignTestsHandler = (selection) => {
+  const assignTestsHandler = (selection: Student[]) => {
     const testObject = { id: props.test._id, title: props.test.title };
-    const studentsToUpdate = selection.map((ss) => ss._id);
+    const studentsToUpdate: string[] = selection?.map((ss) => ss._id);
 
     dispatch(
       updateStudentsPendingTests(props.test._id, 'pending', {
@@ -38,7 +45,7 @@ const AssignTest = (props) => {
     <div className={styles.AssignTest}>
       <div className={styles.Students}>
         {props.students.map((st, i) => {
-          if (!st.pendingtests.some((t) => t.id === props.test._id)) {
+          if (!st?.pendingtests?.some((t) => t.id === props.test._id)) {
             // here
             return (
               <SelectStudent
@@ -46,7 +53,7 @@ const AssignTest = (props) => {
                 key={i}
                 selectNameHandler={selectNameHandler}
               >
-                {st.name}
+                {<div>st.name</div>}
               </SelectStudent>
             );
           } else return null;
