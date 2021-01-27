@@ -33,10 +33,10 @@ describe('Student controllers unit test', () => {
     send: jest.fn(() => res).mockName('send'),
     status: jest.fn(() => res).mockName('status'),
   };
+  student.find = jest.fn();
 
   describe('get students', () => {
-    student.find = jest.fn();
-    student.find.mockResolvedValue(mockStudents);
+    student.find.mockImplementation(() => mockStudents);
 
     test('student.find should have been called once', async () => {
       await getStudents(req, res);
@@ -45,14 +45,21 @@ describe('Student controllers unit test', () => {
 
     test('should call res.send with the correct argument', async () => {
       await getStudents(req, res);
-      expect(res.send).toHaveBeenCalledWith(mockStudents);
+      expect(res.send).toHaveBeenLastCalledWith(mockStudents);
+    });
+
+    test('res.status should have been called with the correct status if there is some error', async () => {
+      student.find.mockImplementation(() => {
+        throw new Error();
+      });
+      await getStudents(req, res);
+      expect(res.status).toHaveBeenLastCalledWith(500);
     });
   });
 
   describe('get student by name', () => {
     test('student.find should have been called with the name from the body of the request', async () => {
-      student.find = jest.fn();
-      student.find.mockResolvedValue(mockStudent);
+      student.find.mockImplementation(() => mockStudent);
       req.body = {
         name: 'Peter',
       };
@@ -62,18 +69,20 @@ describe('Student controllers unit test', () => {
           name: req.body.name,
         })
       );
-      expect(res.send).toHaveBeenCalledWith(mockStudent[0]);
+      expect(res.send).toHaveBeenLastCalledWith(mockStudent[0]);
     });
 
-    test('res.status should have been called with the correct status ', async () => {
+    test('res.status should have been called with the correct status if there are no errors', async () => {
       await postStudent(req, res);
-      expect(res.status).toHaveBeenCalledWith(201);
+      expect(res.status).toHaveBeenLastCalledWith(201);
     });
 
-    // test('res.status should have been called with the correct status', async () => {
-    //   student.find.mockImplementation(() => new Error());
-    //   await postStudent(req, res);
-    //   expect(res.status).toHaveBeenCalledWith(500);
-    // });
+    test('res.status should have been called with the correct status if there is some error', async () => {
+      student.find.mockImplementation(() => {
+        throw new Error();
+      });
+      await postStudent(req, res);
+      expect(res.status).toHaveBeenLastCalledWith(500);
+    });
   });
 });
