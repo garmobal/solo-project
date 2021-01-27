@@ -145,7 +145,7 @@ const mockTests = {
   },
 };
 
-const mockStudent = { name: 'Peter' };
+const mockStudent = [{ name: 'Peter' }];
 const mockStudents = [{ name: 'Peter' }, { name: 'Francesco' }];
 
 const mockTestWithIds = {

@@ -50,8 +50,8 @@ describe('post student', () => {
   });
 
   it('should get a single student', async (done) => {
-    const response = await request.post('/student').send(mockStudent);
-    expect(response.body.name).toBe(mockStudent.name);
+    const response = await request.post('/student').send(mockStudent[0]);
+    expect(response.body.name).toBe(mockStudent[0].name);
     expect(response.body.pendingtests).toEqual([]);
     expect(response.body.classes).toEqual([]);
     expect(response.body.completedtests).toEqual([]);

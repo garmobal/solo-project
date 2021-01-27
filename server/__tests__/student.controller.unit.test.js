@@ -9,23 +9,9 @@ const {
 } = require('../controller/student.controller');
 
 const student = require('./../models/student.model');
+const { mockStudent, mockStudents } = require('./../mocks/mocks');
 
 jest.mock('./../models/student.model', () => ({ student: () => {} }));
-
-const mockStudents = [
-  {
-    name: 'Peter',
-  },
-  {
-    name: 'Francesco',
-  },
-];
-
-const mockStudent = [
-  {
-    name: 'Peter',
-  },
-];
 
 describe('Student controllers unit test', () => {
   const req = {};
@@ -111,6 +97,27 @@ describe('Student controllers unit test', () => {
       });
       await postStudents(req, res);
       expect(res.status).toHaveBeenLastCalledWith(500);
+    });
+  });
+
+  describe('get student', () => {
+    student.findOne = jest.fn();
+    test('student.findOne should have been called with the correct id', async () => {
+      req.params = {
+        id: 1,
+      };
+      await getStudent(req, res);
+      expect(student.findOne).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          _id: req.params.id,
+        })
+      );
+    });
+
+    test('res.send should have been called with the correct argument', async () => {
+      student.findOne.mockImplementation(() => mockStudent);
+      await getStudent(req, res);
+      expect(res.send).toHaveBeenLastCalledWith(mockStudent);
     });
   });
 });
