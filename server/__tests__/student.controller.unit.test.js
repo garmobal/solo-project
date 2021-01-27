@@ -7,9 +7,14 @@ const {
   updatePendingTests,
   deleteAllStudents,
 } = require('../controller/student.controller');
+const { cloneDeep } = require('lodash');
 
 const student = require('./../models/student.model');
-const { mockStudent, mockStudents } = require('./../mocks/mocks');
+const {
+  mockStudent,
+  mockStudents,
+  mockTestWithIds,
+} = require('./../mocks/mocks');
 
 jest.mock('./../models/student.model', () => ({ student: () => {} }));
 
@@ -100,7 +105,7 @@ describe('Student controllers unit test', () => {
     });
   });
 
-  describe('get student', () => {
+  describe('get student by id', () => {
     student.findOne = jest.fn();
     test('student.findOne should have been called with the correct id', async () => {
       req.params = {
@@ -118,6 +123,66 @@ describe('Student controllers unit test', () => {
       student.findOne.mockImplementation(() => mockStudent);
       await getStudent(req, res);
       expect(res.send).toHaveBeenLastCalledWith(mockStudent);
+    });
+
+    test('res.status should have been called with the correct status if there is some error', async () => {
+      student.findOne.mockImplementation(() => {
+        throw new Error();
+      });
+      await getStudent(req, res);
+      expect(res.status).toHaveBeenLastCalledWith(500);
+    });
+  });
+
+  describe('update complete student', () => {
+    student.findOne = jest.fn();
+    req.params = {
+      id: 1,
+    };
+    const testWithId = Object.assign({}, mockTestWithIds);
+    testWithId.id = req.params.id;
+
+    const updateCompleteStudentRes = {
+      completedtests: [],
+      pendingtests: [testWithId],
+      save: jest.fn().mockName('save'),
+    };
+
+    const updateCompleteStudentExpRes = {
+      completedtests: [testWithId],
+      pendingtests: [],
+      save: updateCompleteStudentRes.save,
+    };
+
+    test('student.findOne should have been called with the correct id', async () => {
+      await updateCompleteStudent(req, res);
+      expect(student.findOne).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          _id: req.params.id,
+        })
+      );
+    });
+
+    test('res.send should have been called with the updated student', async () => {
+      req.body = testWithId;
+      student.findOne.mockImplementation(() =>
+        cloneDeep(updateCompleteStudentRes)
+      );
+      await updateCompleteStudent(req, res);
+      expect(res.send).toHaveBeenLastCalledWith(updateCompleteStudentExpRes);
+    });
+
+    test('res.status should have been called with the correct status if there are no errors', async () => {
+      await updateCompleteStudent(req, res);
+      expect(res.status).toHaveBeenLastCalledWith(200);
+    });
+
+    test('res.status should have been called with the correct status if there is some error', async () => {
+      student.findOne.mockImplementation(() => {
+        throw new Error();
+      });
+      await updateCompleteStudent(req, res);
+      expect(res.status).toHaveBeenLastCalledWith(500);
     });
   });
 });
