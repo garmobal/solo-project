@@ -98,8 +98,5 @@ export interface Question {
   answer: string;
   options: Option[];
   question: string;
-  image: string;
+  image?: string;
 }
-
-
-
