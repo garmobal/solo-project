@@ -85,4 +85,32 @@ describe('Student controllers unit test', () => {
       expect(res.status).toHaveBeenLastCalledWith(500);
     });
   });
+
+  describe('post students', () => {
+    student.insertMany = jest.fn();
+    test('student.insertMany should have been called with the students to insert', async () => {
+      req.body = mockStudents;
+      await postStudents(req, res);
+      expect(student.insertMany).toHaveBeenLastCalledWith(req.body);
+    });
+
+    test('res.send should have been called with the correct argument', async () => {
+      student.insertMany.mockImplementation(() => mockStudents);
+      await postStudents(req, res);
+      expect(res.send).toHaveBeenLastCalledWith(mockStudents);
+    });
+
+    test('res.status should have been called with the correct status if there are no errors', async () => {
+      await postStudents(req, res);
+      expect(res.status).toHaveBeenLastCalledWith(201);
+    });
+
+    test('res.status should have been called with the correct status if there is some error', async () => {
+      student.insertMany.mockImplementation(() => {
+        throw new Error();
+      });
+      await postStudents(req, res);
+      expect(res.status).toHaveBeenLastCalledWith(500);
+    });
+  });
 });
