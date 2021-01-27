@@ -4,11 +4,9 @@ const {
   getTest,
   deleteTest,
 } = require('../controller/test.controller');
-const { mockTests } = require('../mocks/mocks');
-const { deleteOne } = require('./../models/test.model');
-const mockId = 0;
-const multipleTests = [mockTests.valid, mockTests.valid];
 const test = require('./../models/test.model');
+const { mockTests, mockId } = require('../mocks/mocks');
+const multipleTests = [mockTests.valid, mockTests.valid];
 
 jest.mock('./../models/test.model', () => ({ test: () => {} }));
 

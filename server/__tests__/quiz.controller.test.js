@@ -41,6 +41,7 @@ describe('Check Answers', () => {
   });
 
   it('should return true if the answer is correct', async (done) => {
+    console.log('testRes ----->', testRes[0].questions[0]);
     let body = {
       testid: testRes[0]._id,
       answer: testRes[0].questions[0].answer,

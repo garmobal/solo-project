@@ -147,6 +147,7 @@ const mockTests = {
 
 const mockStudent = [{ name: 'Peter' }];
 const mockStudents = [{ name: 'Peter' }, { name: 'Francesco' }];
+const mockId = 0;
 
 const mockTestWithIds = {
   questions: [
@@ -199,4 +200,10 @@ const mockTestWithIds = {
   testtype: 'Syllable quiz',
 };
 
-module.exports = { mockTests, mockStudent, mockStudents, mockTestWithIds };
+module.exports = {
+  mockTests,
+  mockStudent,
+  mockStudents,
+  mockTestWithIds,
+  mockId,
+};
