@@ -5,6 +5,7 @@ const {
   deleteTest,
 } = require('../controller/test.controller');
 const { mockTests } = require('../mocks/mocks');
+const { deleteOne } = require('./../models/test.model');
 const mockId = 0;
 const multipleTests = [mockTests.valid, mockTests.valid];
 const test = require('./../models/test.model');
@@ -21,15 +22,22 @@ describe('Test controllers unit test', () => {
   describe('getTests should get all tests when valid', () => {
     test.find = jest.fn();
     test.find.mockResolvedValue(multipleTests);
-
-    it('test.find should have been called once', async () => {
-      await getTests(req, res);
+    it('test.find should have been called once', () => {
+      getTests(req, res);
       expect(test.find).toHaveBeenCalledTimes(1);
     });
 
-    it('should call res.send with the correct status', async () => {
-      await getTests(req, res);
+    it('should call res.send with the correct status', () => {
+      getTests(req, res);
       expect(res.send).toHaveBeenCalledWith(multipleTests);
+    });
+
+    it('should call res.send with the correct status', () => {
+      test.find.mockImplementationOnce(() => {
+        throw new Error('');
+      });
+      getTests(req, res);
+      expect(res.status).toHaveBeenLastCalledWith(500);
     });
   });
 
@@ -37,20 +45,28 @@ describe('Test controllers unit test', () => {
     test.create = jest.fn();
     test.create.mockResolvedValue(mockTests.valid);
 
-    it('test.create should have been called once', async () => {
-      await postTest(req, res);
+    it('test.create should have been called once', () => {
+      postTest(req, res);
       expect(test.create).toHaveBeenCalledTimes(1);
     });
 
-    it('should call res.send with the correct status', async () => {
-      await postTest(req, res);
+    it('should call res.send with the correct status', () => {
+      postTest(req, res);
       expect(res.send).toHaveBeenCalledWith(mockTests.valid);
     });
 
-    // it('should return the correct res.status', async () => {
-    //   await postTest(req, res);
-    //   expect(res.status).toHaveBeenCalledWith(201);
-    // });
+    it('should return the correct res.status', () => {
+      postTest(req, res);
+      expect(res.status).toHaveBeenLastCalledWith(201);
+    });
+
+    it('should call res.send with the correct status', () => {
+      test.create.mockImplementationOnce(() => {
+        throw new Error('');
+      });
+      postTest(req, res);
+      expect(res.status).toHaveBeenLastCalledWith(500);
+    });
   });
 
   describe('getTest should get a specific test when valid', () => {
@@ -60,19 +76,27 @@ describe('Test controllers unit test', () => {
     test.findOne = jest.fn();
     test.findOne.mockResolvedValue(mockTests.valid);
 
-    it('test.create should have been called once', async () => {
-      await getTest(req, res);
+    it('test.create should have been called once', () => {
+      getTest(req, res);
       expect(test.findOne).toHaveBeenCalledTimes(1);
     });
 
-    it('should return the correct res.status', async () => {
-      await getTest(req, res);
+    it('should return the correct res.status', () => {
+      getTest(req, res);
       expect(test.findOne).toHaveBeenCalledWith({ _id: mockId });
     });
 
-    it('should call res.send with the correct status', async () => {
-      await getTest(req, res);
+    it('should call res.send with the correct status', () => {
+      getTest(req, res);
       expect(res.send).toHaveBeenCalledWith(mockTests.valid);
+    });
+
+    it('should call res.send with the correct status', () => {
+      test.findOne.mockImplementationOnce(() => {
+        throw new Error('');
+      });
+      getTest(req, res);
+      expect(res.status).toHaveBeenLastCalledWith(500);
     });
   });
 
@@ -83,19 +107,32 @@ describe('Test controllers unit test', () => {
     test.deleteOne = jest.fn();
     test.deleteOne.mockResolvedValue(mockTests.valid);
 
-    it('test.deleteOne should have been called once', async () => {
-      await deleteTest(req, res);
+    it('test.deleteOne should have been called once', () => {
+      deleteTest(req, res);
       expect(test.deleteOne).toHaveBeenCalledTimes(1);
     });
 
-    it('should return the correct res.status', async () => {
-      await deleteTest(req, res);
+    it('should return the correct res.status', () => {
+      deleteTest(req, res);
       expect(test.deleteOne).toHaveBeenCalledWith({ _id: mockId });
     });
 
-    it('should call res.send with the correct status', async () => {
-      await deleteTest(req, res);
+    it('should call res.send with the correct status', () => {
+      deleteTest(req, res);
       expect(res.send).toHaveBeenCalledWith(mockTests.valid);
+    });
+
+    it('should return the correct res.status', () => {
+      deleteTest(req, res);
+      expect(res.status).toHaveBeenLastCalledWith(204);
+    });
+
+    it('should call res.send with the correct status', () => {
+      test.deleteOne.mockImplementationOnce(() => {
+        throw new Error('');
+      });
+      deleteTest(req, res);
+      expect(res.status).toHaveBeenLastCalledWith(500);
     });
   });
 });
