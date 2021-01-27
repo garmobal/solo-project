@@ -185,4 +185,37 @@ describe('Student controllers unit test', () => {
       expect(res.status).toHaveBeenLastCalledWith(500);
     });
   });
+
+  describe('update pending tests', () => {
+    student.updateMany = jest.fn();
+
+    test('student.updateMany should have been called with the correct argument', async () => {
+      student.find.mockImplementation(() => mockStudents);
+      req.body.ssids = [1, 2];
+      req.body.test = mockTestWithIds;
+      await updatePendingTests(req, res);
+      expect(student.updateMany).toHaveBeenLastCalledWith(
+        { _id: { $in: req.body.ssids } },
+        { $push: { pendingtests: req.body.test } }
+      );
+    });
+
+    test('res.send should have been called with the updated students', async () => {
+      await updatePendingTests(req, res);
+      expect(res.send).toHaveBeenLastCalledWith(mockStudents);
+    });
+
+    test('res.status should have been called with the correct status if there are no errors', async () => {
+      await updatePendingTests(req, res);
+      expect(res.status).toHaveBeenLastCalledWith(200);
+    });
+
+    test('res.status should have been called with the correct status if there is some error', async () => {
+      student.find.mockImplementation(() => {
+        throw new Error();
+      });
+      await updateCompleteStudent(req, res);
+      expect(res.status).toHaveBeenLastCalledWith(500);
+    });
+  });
 });
