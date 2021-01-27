@@ -43,6 +43,7 @@
     ]
   },
   "devDependencies": {
+    "cypress": "^6.3.0",
     "redux-mock-store": "^1.5.4"
   }
 }
