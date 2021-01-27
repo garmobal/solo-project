@@ -1,4 +1,4 @@
-import { Test, UserAnswer } from './types';
+import { PostTest, Test, UserAnswer } from './types';
 
 const baseUrl = 'http://localhost:3002';
 
@@ -6,7 +6,7 @@ export function getTests() {
   return fetchTests(`${baseUrl}/test`);
 }
 
-export function postTest(test: Test) {
+export function postTest(test: PostTest) {
   return fetchTests(`${baseUrl}/test`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

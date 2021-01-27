@@ -2,7 +2,7 @@ import * as actionTypes from './actionTypes';
 import * as studentAPI from '../../studentAPI';
 
 import { AppDispatch } from '../../index';
-import { CompletedTest, AssignToStudentsList, Student } from '../../types';
+import { AssignToStudentsList, Student } from '../../types';
 
 export const fetchStudents = () => {
   return (dispatch: AppDispatch) => {
@@ -37,10 +37,8 @@ export const fetchStudent = () => {
 export const updateStudentResults = (
   ssid: string,
   status: string,
-  testResults: CompletedTest
+  testResults: AssignToStudentsList
 ) => {
-  console.log('ssid', ssid, 'status', status, 'testResults', testResults);
-
   return (dispatch: AppDispatch) => {
     studentAPI.updateStudentTests(ssid, status, testResults).then((data) => {
       dispatch({ type: actionTypes.GET_STUDENT, payload: data });
