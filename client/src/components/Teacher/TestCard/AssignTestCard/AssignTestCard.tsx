@@ -2,7 +2,13 @@ import React from 'react';
 
 import styles from './AssignTestCard.module.scss';
 
-const AssignTestCard = props => {
+interface IProps {
+close: React.MouseEventHandler<HTMLDivElement>;
+show: boolean;
+children: React.ReactNode;
+}
+
+const AssignTestCard = (props: IProps) => {
   return (
     <React.Fragment>
       {props.show ? 

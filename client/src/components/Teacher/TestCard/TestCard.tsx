@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { SystemState, Test } from '../../../types';
+import {  SystemState, Test } from '../../../types';
 
 import AssignTest from './AssignTest/AssignTest';
 import AssignTestCard from './AssignTestCard/AssignTestCard';
 import styles from './TestCard.module.scss';
 
 interface IProps {
+  
   test: Test;
   deleteTestHandler: Function;
 }

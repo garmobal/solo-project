@@ -2,7 +2,8 @@ import React from 'react';
 
 import styles from './CreateButton.module.scss';
 
-const CreateButton = props => {
+
+const CreateButton = (props: any) => {
   return (
     <button 
       onClick={props.clicked} 

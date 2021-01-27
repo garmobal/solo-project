@@ -95,6 +95,5 @@ export interface Question {
   image: string;
 }
 
-export interface Trash {
-  question: Question;
-}
+
+
