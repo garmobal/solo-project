@@ -11,6 +11,10 @@ interface IProps {
   close: () => void;
 }
 
+interface Result {
+  data: Student[];
+}
+
 const ImportStudent = (props: IProps) => {
   const [highlighted, setHighlighted] = useState(false);
   const [ss, setSs] = useState<Student[]>([]);
@@ -24,7 +28,7 @@ const ImportStudent = (props: IProps) => {
       .filter((file: File) => file.type === 'text/csv')
       .forEach(async (file: File) => {
         const text = await file.text();
-        const result = parse(text, { header: true });
+        const result: Result = parse(text, { header: true });
         setSs((sts) => [...sts, ...result.data]);
       });
   };

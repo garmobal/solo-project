@@ -12,8 +12,6 @@ export const fetchTests = () => {
 };
 
 export const postTest = (questions: TestQuestion[], title: string) => {
-  console.log('questions', questions, 'title', title);
-
   return (dispatch: AppDispatch) => {
     testAPI
       .postTest({ questions, title })
@@ -40,8 +38,6 @@ export const fetchQuizz = (id: string) => {
 };
 
 export const checkUserAnswer = (answerObject: UserAnswer) => {
-  console.log(answerObject);
-
   return (dispatch: AppDispatch) => {
     testAPI.checkAnswer(answerObject).then((data: ResultQuestions) =>
       dispatch({

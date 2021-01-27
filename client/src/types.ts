@@ -2,7 +2,7 @@ export interface SystemState {
   role: string;
   currentStudent?: Student;
   tests?: Test[];
-  students?: Student[];
+  students: Student[];
   currentQuizz?: Quizz;
 }
 
@@ -14,6 +14,7 @@ export interface Student {
 }
 
 export interface CompletedTest {
+  id: string;
   result: TestResult;
   title?: string;
 }
@@ -36,6 +37,11 @@ export interface PendingTest {
   title: string;
 }
 
+export interface PostTest {
+  questions: TestQuestion[];
+  title: string;
+}
+
 export interface Test {
   _id: string;
   questions: TestQuestion[];
@@ -48,6 +54,7 @@ export interface TestQuestion {
   answer: string;
   question: string;
   options: Option[];
+  image?: string;
 }
 
 export interface Option {
@@ -65,7 +72,7 @@ export interface UserAnswer {
 
 export interface LoginStatus {
   name: string;
-  pw: string;
+  pw?: string;
   logout?: string;
 }
 
@@ -86,3 +93,13 @@ export interface Quizz {
   testtype: string;
   title: string;
 }
+
+export interface Question {
+  answer: string;
+  options: Option[];
+  question: string;
+  image: string;
+}
+
+
+

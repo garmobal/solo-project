@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Logout = props => {
+const Logout = (props: any) => {
   return (
     <div>
       Log out
