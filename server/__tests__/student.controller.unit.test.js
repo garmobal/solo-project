@@ -218,4 +218,26 @@ describe('Student controllers unit test', () => {
       expect(res.status).toHaveBeenLastCalledWith(500);
     });
   });
+
+  describe('delete all students', () => {
+    student.deleteMany = jest.fn();
+
+    test('student.updateMany should have been called with the correct argument', async () => {
+      await deleteAllStudents(req, res);
+      expect(student.deleteMany).toHaveBeenLastCalledWith({});
+    });
+
+    test('res.status should have been called with the correct status if there are no errors', async () => {
+      await deleteAllStudents(req, res);
+      expect(res.status).toHaveBeenLastCalledWith(204);
+    });
+
+    test('res.status should have been called with the correct status if there is some error', async () => {
+      student.deleteMany.mockImplementation(() => {
+        throw new Error();
+      });
+      await deleteAllStudents(req, res);
+      expect(res.status).toHaveBeenLastCalledWith(500);
+    });
+  });
 });
