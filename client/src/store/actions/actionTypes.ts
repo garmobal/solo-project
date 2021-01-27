@@ -1,4 +1,5 @@
 import {
+  PostTest,
   ResultQuestions,
   Student,
   SystemState,
@@ -33,7 +34,7 @@ interface GetTestsAction {
 
 interface PostTestsAction {
   type: typeof POST_TEST;
-  payload: Test;
+  payload: PostTest;
 }
 
 interface DeleteTestsAction {

@@ -2,7 +2,7 @@ export interface SystemState {
   role: string;
   currentStudent?: Student;
   tests?: Test[];
-  students?: Student[];
+  students: Student[];
   currentQuizz?: Quizz;
 }
 
@@ -37,6 +37,11 @@ export interface PendingTest {
   title: string;
 }
 
+export interface PostTest {
+  questions: TestQuestion[];
+  title: string;
+}
+
 export interface Test {
   _id: string;
   questions: TestQuestion[];
@@ -49,6 +54,7 @@ export interface TestQuestion {
   answer: string;
   question: string;
   options: Option[];
+  image?: string;
 }
 
 export interface Option {
