@@ -4,6 +4,7 @@ export interface SystemState {
   tests?: Test[];
   students: Student[];
   currentQuizz?: Quizz;
+  progress: ResultQuestions[];
 }
 
 export interface Student {
