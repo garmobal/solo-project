@@ -7,14 +7,14 @@ import styles from './Question.module.scss';
 import { checkUserAnswer } from '../../../../store/actions/testActions';
 import { updateStudentResults } from '../../../../store/actions/studentListActions';
 
-const Question = props => {
-
+const Question = (props) => {
   const [userIsAnswering, setuserIsAnswering] = useState(true);
-  const [showExit, setShowExit] = useState(false);
+  // const [showExit, setShowExit] = useState(false);
+  const showExit = false; // set show exit is not used
 
   const dispatch = useDispatch();
-  const progress = useSelector(state => state.progress);
-  const student = useSelector(state => state.currentStudent);
+  const progress = useSelector((state) => state.progress);
+  const student = useSelector((state) => state.currentStudent);
 
   // Submit to DB to check
   const submitAnswerHandler = (userAnswer) => {
@@ -23,7 +23,7 @@ const Question = props => {
       answer: userAnswer,
       qid: props.question._id,
       question: props.question.question,
-      testid: props.quizz._id
+      testid: props.quizz._id,
     };
     dispatch(checkUserAnswer(answerObject));
     setuserIsAnswering(false);
@@ -37,16 +37,18 @@ const Question = props => {
   // Next Button
   const nextButtonHandler = () => {
     if (props.currQuest === props.quizz.questions.length - 1) {
-      setuserIsAnswering(true) // HERE
+      setuserIsAnswering(true); // HERE
 
-      const correct = progress.filter(question => question.correct).length;
+      const correct = progress.filter((question) => question.correct).length;
       const completedTest = {
         id: props.quizz._id,
         title: props.quizz.title,
         result: {
-          percentage: Math.round(correct / props.quizz.questions.length * 100),
-          questions: progress
-        }
+          percentage: Math.round(
+            (correct / props.quizz.questions.length) * 100
+          ),
+          questions: progress,
+        },
       };
 
       dispatch(updateStudentResults(student._id, 'completed', completedTest));
@@ -54,49 +56,66 @@ const Question = props => {
       // props.history.replace('/user'); why are you not workingggg?
     } else {
       // if (props.currQuest === props.quizz.questions.length - 2) setShowExit(true);
-      setuserIsAnswering(true) // HERE
+      setuserIsAnswering(true); // HERE
       props.nextButton(false);
     }
-  }
+  };
 
   return (
     <div className={styles.Question}>
-      <div className={props.question.image ? styles.QuestionTitleAndImage : styles.QuestionTitle}>
-        {props.question.question} 
-        {props.question.image ? <img style={{height: '250px', borderRadius: '10px'}} src={props.question.image}/> : null}
+      <div
+        className={
+          props.question.image
+            ? styles.QuestionTitleAndImage
+            : styles.QuestionTitle
+        }
+      >
+        {props.question.question}
+        {props.question.image ? (
+          <img
+            style={{ height: '250px', borderRadius: '10px' }}
+            src={props.question.image}
+            alt='question'
+          />
+        ) : null}
         {console.log(props.question)}
       </div>
       <div className={styles.Options}>
-        {
-          props.question.options.map((opt, i) => (
-            <Answer 
-              key={i} 
-              submitAnswerHandler={submitAnswerHandler}
-              disableButton={!userIsAnswering}
-              fb={feedbackStyle}
-              currQuest={props.currQuest}
-            >{opt}</Answer>
-          ))
-        }
+        {props.question.options.map((opt, i) => (
+          <Answer
+            key={i}
+            submitAnswerHandler={submitAnswerHandler}
+            disableButton={!userIsAnswering}
+            fb={feedbackStyle}
+            currQuest={props.currQuest}
+          >
+            {opt}
+          </Answer>
+        ))}
       </div>
-      {
-        showExit ? 
-        (<Link to={'/user'}>
+      {showExit ? (
+        <Link to={'/user'}>
           <div className={styles.NextButtonContainer}>
-            <button 
-              className={styles.NextButton} onClick={nextButtonHandler} 
+            <button
+              className={styles.NextButton}
+              onClick={nextButtonHandler}
               disabled={userIsAnswering}
-            ><i className="fas fa-arrow-right"></i></button>
+            >
+              <i className='fas fa-arrow-right'></i>
+            </button>
           </div>
-        </Link>) : 
-        (<div className={styles.NextButtonContainer}>
-          <button 
-            className={styles.NextButton} onClick={nextButtonHandler} 
+        </Link>
+      ) : (
+        <div className={styles.NextButtonContainer}>
+          <button
+            className={styles.NextButton}
+            onClick={nextButtonHandler}
             disabled={userIsAnswering}
-          ><i className="fas fa-arrow-right"></i></button>
-        </div>)
-      }
-      
+          >
+            <i className='fas fa-arrow-right'></i>
+          </button>
+        </div>
+      )}
     </div>
   );
 };
