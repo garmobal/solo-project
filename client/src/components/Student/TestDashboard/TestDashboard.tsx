@@ -3,15 +3,18 @@ import { useSelector } from 'react-redux';
 import Feedback from './Feedback/Feedback';
 import Question from './Question/Question';
 import styles from './TestDashboard.module.scss';
+import { SystemState } from '../../../types'
 
-const TestDashboard = props => {
+
+
+const TestDashboard = () => {
 
   const [currentQ, setCurrentQ] = useState(0);
-  const quizz = useSelector(state => state.currentQuizz);
+  const quizz = useSelector((state: SystemState) => state.currentQuizz);
   const [showingFeedback, setShowingFeedback] = useState(false); // HERE
   const [quizzResults, setQuizzResults] = useState({});
   
-  const nextButton = (completed) => {
+  const nextButton = (completed: boolean) => {
     if (!completed) {
       setCurrentQ(current => current + 1);
     } else {
@@ -21,7 +24,7 @@ const TestDashboard = props => {
     }
   };
 
-  const question = quizz.questions ? 
+  const question = quizz?.questions ? 
     (<Question 
       question={quizz.questions[currentQ]}
       quizz={quizz}

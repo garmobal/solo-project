@@ -4,6 +4,7 @@ export interface SystemState {
   tests?: Test[];
   students: Student[];
   currentQuizz?: Quizz;
+  progress?: ResultQuestions[];
 }
 
 export interface Student {
@@ -43,8 +44,9 @@ export interface PostTest {
 }
 
 export interface Test {
-  _id: string;
-  questions: TestQuestion[];
+  _id?: string;
+  id: string;
+  questions?: TestQuestion[];
   title: string;
 }
 
@@ -94,12 +96,18 @@ export interface Quizz {
   title: string;
 }
 
-export interface Question {
-  answer: string;
-  options: Option[];
-  question: string;
-  image: string;
+
+export interface Progress {
+
 }
+
+export interface CurrentQuest {
+  currentQuest: TestQuestion[];
+}
+
+
+  
+
 
 
 

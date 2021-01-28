@@ -72,7 +72,7 @@ const QuestionCreator = (props: IProps) => {
           className={styles.ImageInput}
         />
         <div className={styles.Button}>
-          <CreateButton type={'submit'}>Add Question</CreateButton>
+          <CreateButton type={'submit'}><div>Add Question</div></CreateButton>
         </div>
         {/* <input type="submit" value="save question"/> */}
       </form>

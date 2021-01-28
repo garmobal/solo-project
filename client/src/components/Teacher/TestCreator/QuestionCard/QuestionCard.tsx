@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { Question } from '../../../../types';
+import { TestQuestion } from '../../../../types';
 import styles from './QuestionCard.module.scss';
 
 
 interface IProps {
-  quest: Question;
+  quest: TestQuestion;
   trashHandler: Function;
 }
 

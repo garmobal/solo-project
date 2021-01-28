@@ -12,6 +12,7 @@ import { TestQuestion } from '../../../types';
 
 interface IProps {
   history: History;
+  
 }
 
 const TestCreator = (props: IProps) => {
@@ -32,7 +33,7 @@ const TestCreator = (props: IProps) => {
     }
   }, []);
 
-  const saveQuestionHandler = (q) => {
+  const saveQuestionHandler = (q: any) => {
     const question = q as typeof q & {
       [key: string]: { value: String };
       question: { value: String };
@@ -135,7 +136,7 @@ const TestCreator = (props: IProps) => {
           className={styles.Title}
         />
         <div className={styles.TestButtonDiv}>
-          <CreateButton clicked={submitTestHandler}>Save Test</CreateButton>
+          <CreateButton clicked={submitTestHandler}><div>Save Test</div></CreateButton>
         </div>
         {questions.length < 4 ? addMoreQuestionsMessage : null}
       </div>

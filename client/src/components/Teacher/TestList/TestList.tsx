@@ -23,7 +23,7 @@ const TestList = () => {
   return (
     <div className={styles.TestList}>
       <Link to="/testcreator">
-        <CreateButton>Add a new test</CreateButton>
+        <CreateButton><div>Add a new test</div></CreateButton>
       </Link>
       <div className={styles.TestListContainer}>
         {tests?.length

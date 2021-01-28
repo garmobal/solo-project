@@ -61,10 +61,10 @@ const ImportStudent = (props: IProps) => {
       </div>
       <div className={styles.Buttons}>
         <CreateButton clicked={saveHandler}>
-          <i className="fas fa-user-check"></i> Save
+          <i className="fas fa-user-check"></i><div>Save</div>
         </CreateButton>
         <CreateButton clicked={() => setSs([])}>
-          <i className="fas fa-user-times"></i> Discard
+          <i className="fas fa-user-times"></i><div>Discard</div>
         </CreateButton>
       </div>
     </div>

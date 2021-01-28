@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from 'react';
-
+import {CurrentQuest} from '../../../../types'
 import styles from './Answer.module.scss';
 
-const Answer = props => {
+interface IProps {
+  currQuest: CurrentQuest;
+  children: string[];
+  disableButton: boolean;
+  fb: string;
+  submitAnswerHandler: Function;
+}
+
+const Answer = (props: IProps) => {
 
   const [clicked, setClicked] = useState(false);
 

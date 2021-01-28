@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
+import { SystemState } from '../../../types';
 import styles from './StudentDashboard.module.scss';
-import { fetchStudent } from '../../../store/actions/studentListActions.ts';
+import { fetchStudent } from '../../../store/actions/studentListActions';
 
 import StudentTestList from './StudentTestList/StudentTestList';
 
 const StudentDashboard = () => {
-  const student = useSelector((state) => state.currentStudent);
+  const student = useSelector((state: SystemState) => state.currentStudent);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchStudent('Sara Gómez'));
+    dispatch(fetchStudent());
   }, [dispatch]);
 
   return (

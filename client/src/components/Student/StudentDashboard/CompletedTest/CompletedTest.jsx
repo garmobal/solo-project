@@ -1,7 +1,9 @@
 import React from 'react';
 import styles from './CompletedTest.module.scss';
 
-const CompletedTest = props => {
+
+
+const CompletedTest = (props) => {
 
   return (
     <div className={styles.CompletedTest}>

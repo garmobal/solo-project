@@ -4,23 +4,36 @@ import { Link } from 'react-router-dom';
 
 import Answer from '../Answer/Answer';
 import styles from './Question.module.scss';
-import { checkUserAnswer } from '../../../../store/actions/testActions.ts';
-import { updateStudentResults } from '../../../../store/actions/studentListActions.ts';
+import { checkUserAnswer } from '../../../../store/actions/testActions';
+import { updateStudentResults } from '../../../../store/actions/studentListActions';
+import { SystemState, Quizz, CurrentQuest, Progress, TestQuestion, Student, UserAnswer } from '../../../../types';
 
-const Question = (props) => {
-  const [userIsAnswering, setuserIsAnswering] = useState(true);
-  const [showExit, setShowExit] = useState(false);
+interface IProps {
+filter?: Function;
+nextButton: Function;
+updateStudentResults: Function;
+quizz: Quizz;
+progress?: Progress;
+currQuest: CurrentQuest;
+student?: Student;
+question: TestQuestion;
+
+}
+
+const Question = (props: IProps) => {
+  const [userIsAnswering, setuserIsAnswering] = useState(true); 
+  const [showExit, setShowExit] = useState(false); // eslint-disable-line @typescript-eslint/no-unused-vars
 
   const dispatch = useDispatch();
-  const progress = useSelector((state) => state.progress);
-  const student = useSelector((state) => state.currentStudent);
+  const progress = useSelector((state: SystemState) => state.progress);
+  const student = useSelector((state: SystemState) => state.currentStudent);
 
   // Submit to DB to check
-  const submitAnswerHandler = (userAnswer) => {
+  const submitAnswerHandler = (userAnswer: UserAnswer) => {
     const answerObject = {
       learner: true,
       answer: userAnswer,
-      qid: props.question._id,
+      qid: props.question._id, 
       question: props.question.question,
       testid: props.quizz._id,
     };

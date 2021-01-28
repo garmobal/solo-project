@@ -3,23 +3,29 @@ import React from 'react';
 import PendingTest from '../PendingTest/PendingTest';
 import CompletedTest from '../CompletedTest/CompletedTest';
 import styles from './StudentTestList.module.scss';
+import { Student } from '../../../../types'
 
-const StudentTestList = (props) => {
+interface IProps {
+listType: string;
+student?: Student;
+}
+
+const StudentTestList = (props: IProps) => {
   let listTitle;
 
   let listContent;
 
   if (props.listType === 'pendingtests') {
     listTitle = 'New Challenges!';
-    listContent = props.student.pendingtests ? (
-      props.student.pendingtests.map((t) => <PendingTest key={t.id} test={t} />)
+    listContent = props.student?.pendingtests ? (
+      props.student?.pendingtests.map((t) => <PendingTest key={t.id} test={t} />) 
     ) : (
       <p>You have no tests!</p>
     );
   } else {
     listTitle = 'Completed';
-    listContent = props.student.pendingtests ? (
-      props.student.completedtests.map((t) => (
+    listContent = props.student?.pendingtests ? (
+      props.student.completedtests?.map((t) => (
         <CompletedTest key={t.id} test={t} />
       ))
     ) : (

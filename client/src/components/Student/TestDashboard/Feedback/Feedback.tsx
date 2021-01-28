@@ -2,21 +2,30 @@ import React, { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './Feedback.module.scss';
-import * as actionTypes from '../../../../store/actions/actionTypes.ts';
+import * as actionTypes from '../../../../store/actions/actionTypes';
 import * as confetti from 'canvas-confetti';
+import { SystemState, CompletedTest, Student } from '../../../../types';
+import { History } from 'history';
 
-const Feedback = (props) => {
-  const student = useSelector((state) => state.currentStudent);
+interface IProps {
+  history: History;
+  quizzResults: CompletedTest;
+  student: Student;
+  
+}
+
+const Feedback = (props: IProps) => {
+  const student = useSelector((state: SystemState) => state.currentStudent);
 
   let sentence =
     props.quizzResults.result.percentage > 60
-      ? `Well done, ${student.name}!`
-      : `Good luck next time, ${student.name}`;
+      ? `Well done, ${student?.name}!`
+      : `Good luck next time, ${student?.name}`;
 
   const dispatch = useDispatch();
   useEffect(() => {
     setTimeout(() => {
-      confetti.create(undefined, { resize: true, useWorker: false })({
+      confetti.create(undefined!, { resize: true, useWorker: false })({
         startVelocity: 80,
         particleCount: 200,
         gravity: 2,
@@ -29,7 +38,7 @@ const Feedback = (props) => {
       });
     }, 300);
     setTimeout(() => {
-      confetti.create(undefined, { resize: true, useWorker: false })({
+      confetti.create(undefined!, { resize: true, useWorker: false })({
         startVelocity: 80,
         particleCount: 300,
         gravity: 2,
@@ -42,7 +51,7 @@ const Feedback = (props) => {
       });
     }, 400);
     setTimeout(() => {
-      confetti.create(undefined, { resize: true, useWorker: false })({
+      confetti.create(undefined!, { resize: true, useWorker: false })({
         startVelocity: 80,
         particleCount: 200,
         gravity: 2,

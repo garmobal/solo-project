@@ -29,7 +29,7 @@ const StudentList = () => {
       </ImportStudentsCard>
       <div className={styles.ButtonDiv}>
         <CreateButton clicked={() => setImportingSS(true)}>
-          <i className="fas fa-file-import"></i> Import students
+          <i className="fas fa-file-import"></i><div>Import students</div>
         </CreateButton>
       </div>
       {students?.length

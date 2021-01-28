@@ -2,9 +2,14 @@ import React from 'react';
 import styles from './PendingTest.module.scss';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { fetchQuizz } from '../../../../store/actions/testActions.ts';
+import { fetchQuizz } from '../../../../store/actions/testActions';
+import { Test } from '../../../../types';
 
-const PendingTest = (props) => {
+interface IProps{
+test: Test;
+}
+
+const PendingTest = (props: IProps) => {
   const dispatch = useDispatch();
 
   return (

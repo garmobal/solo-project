@@ -7,7 +7,6 @@ import AssignTestCard from './AssignTestCard/AssignTestCard';
 import styles from './TestCard.module.scss';
 
 interface IProps {
-  
   test: Test;
   deleteTestHandler: Function;
 }
