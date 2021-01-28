@@ -33,11 +33,11 @@ const TestCreator = (props: IProps) => {
     }
   }, []);
 
-  const saveQuestionHandler = (q: any) => {
+  const saveQuestionHandler = (q: React.ChangeEvent<HTMLInputElement>) => {
     const question = q as typeof q & {
-      [key: string]: { value: String };
-      question: { value: String };
-      answer: { value: String };
+      [key: string]: { value: string };
+      question: { value: string };
+      answer: { value: string };
     };
     const questionFile = q as typeof q & {
       selectedImage: { files: File[] };
