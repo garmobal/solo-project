@@ -1,8 +1,11 @@
 const mongoose = require('mongoose');
+const config = require('./config');
 
 const db = {};
-const url = 'mongodb://localhost:27017/learntoday'
-mongoose.connect(url, { useNewUrlParser: true,  useUnifiedTopology: true });
+
+const url = `${config.dbHost}:${config.dbPort}/${config.dbName}`;
+
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
 db.conn = mongoose;
 
 module.exports = db;

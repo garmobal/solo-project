@@ -11,15 +11,15 @@ const StudentDashboard = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchStudent('Sara Gómez'));
+    dispatch(fetchStudent('Peter'));
   }, [dispatch]);
 
   return (
     <React.Fragment>
       <div className={styles.StudentDashboard}>
         <div>
-          <StudentTestList 
-            student={student} 
+          <StudentTestList
+            student={student}
             listType={'pendingtests'}
           />
         </div>
