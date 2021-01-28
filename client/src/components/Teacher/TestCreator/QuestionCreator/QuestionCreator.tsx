@@ -13,7 +13,7 @@ const QuestionCreator = (props: IProps) => {
   const inputTitleHandler = (e: React.ChangeEvent<HTMLInputElement>) =>
     setTitleValue(e.target.value);
 
-  const onSubmitHandler = (e: React.FormEvent) => {
+  const onSubmitHandler = (e: any) => {
     e.preventDefault();
     props.saveQuestion(e.target);
     setTitleValue('');
@@ -25,6 +25,7 @@ const QuestionCreator = (props: IProps) => {
         <input
           type="text"
           name="question"
+          aria-label="question"
           placeholder="Question"
           autoComplete="off"
           required
@@ -34,6 +35,7 @@ const QuestionCreator = (props: IProps) => {
         <input
           type="text"
           name="a"
+          aria-label="option-a"
           placeholder="Option a"
           autoComplete="off"
           required
@@ -41,6 +43,7 @@ const QuestionCreator = (props: IProps) => {
         <input
           type="text"
           name="b"
+          aria-label="option-b"
           placeholder="Option b"
           autoComplete="off"
           required
@@ -48,6 +51,7 @@ const QuestionCreator = (props: IProps) => {
         <input
           type="text"
           name="c"
+          aria-label="option-c"
           placeholder="Option c"
           autoComplete="off"
           required
@@ -55,11 +59,12 @@ const QuestionCreator = (props: IProps) => {
         <input
           type="text"
           name="d"
+          aria-label="option-d"
           placeholder="Option d"
           autoComplete="off"
           required
         />
-        <select name="answer">
+        <select aria-label="correctanswer" name="answer">
           <option value="a">a</option>
           <option value="b">b</option>
           <option value="c">c</option>
@@ -72,9 +77,10 @@ const QuestionCreator = (props: IProps) => {
           className={styles.ImageInput}
         />
         <div className={styles.Button}>
-          <CreateButton type={'submit'}><div>Add Question</div></CreateButton>
+          <CreateButton type={'submit'}>
+            <div>Add Question</div>
+          </CreateButton>
         </div>
-        {/* <input type="submit" value="save question"/> */}
       </form>
     </div>
   );

@@ -44,6 +44,7 @@ const TestCreator = (props: IProps) => {
     };
     // Create question object
     const letters = ['a', 'b', 'c', 'd'];
+
     const options = letters.map((ch) => ({
       op: question[ch].value,
       correct: false,
@@ -131,12 +132,15 @@ const TestCreator = (props: IProps) => {
       <div className={styles.SaveTest}>
         <input
           type="text"
+          aria-label="test-title"
           placeholder="Add a test title"
           onChange={titleHandler}
           className={styles.Title}
         />
         <div className={styles.TestButtonDiv}>
-          <CreateButton clicked={submitTestHandler}><div>Save Test</div></CreateButton>
+          <CreateButton clicked={submitTestHandler}>
+            <div>Save Test</div>
+          </CreateButton>
         </div>
         {questions.length < 4 ? addMoreQuestionsMessage : null}
       </div>

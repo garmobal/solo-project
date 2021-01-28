@@ -16,10 +16,10 @@ const TestDashboard = () => {
   
   const nextButton = (completed: boolean) => {
     if (!completed) {
-      setCurrentQ(current => current + 1);
+      setCurrentQ((current) => current + 1);
     } else {
       setCurrentQ(0);
-      setQuizzResults(completed)
+      setQuizzResults(completed);
       setShowingFeedback(true);
     }
   };
@@ -30,16 +30,21 @@ const TestDashboard = () => {
       quizz={quizz}
       currQuest={currentQ}
       nextButton={nextButton}
-    />) :
-    'Loading';
+    />
+  ) : (
+    'Loading'
+  );
 
   return (
     <div className={styles.TestDashboard}>
       <div className={styles.Content}>
-        {showingFeedback ? <Feedback quizzResults={quizzResults} 
-        confetti={showingFeedback}/> : question}
+        {showingFeedback ? (
+          <Feedback quizzResults={quizzResults} confetti={showingFeedback} />
+        ) : (
+          question
+        )}
       </div>
-      <div className={styles.Contentbg}/>
+      <div className={styles.Contentbg} />
     </div>
   );
 };

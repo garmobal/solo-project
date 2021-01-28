@@ -11,12 +11,10 @@ children?: JSX.Element|JSX.Element[];
 
 const CreateButton = (props: IProps) => {
   return (
-    <button 
-      onClick={props.clicked} 
-      className={styles.Button}
-      type={props.type}
-    >{props.children}</button>
-  )
+    <button onClick={props.clicked} className={styles.Button} type={props.type}>
+      {props.children}
+    </button>
+  );
 };
 
 export default CreateButton;
